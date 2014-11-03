@@ -22,6 +22,6 @@ router.get('/sendtext', function (req, res) {
 			}
 		});
 		
-	});
+});
 
 module.exports = router;
