@@ -40,7 +40,8 @@ if (!module.parent) {
      * application to be used in tests without binding to a port or file descriptor.
      */
     server = http.createServer(app);
-    server.listen(process.env.PORT || 8000);
+	var port = (process.env.VCAP_APP_PORT || process.env.PORT || 3000);
+    server.listen(port);
     server.on('listening', function () {
         console.log('Server listening on http://localhost:%d', this.address().port);
     });
