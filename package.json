@@ -16,7 +16,8 @@
     "express": "^4.3.0",
     "kraken-devtools": "^1.0.0",
     "kraken-js": "^1.0.1",
-    "localizr": "^0.1.0"
+    "localizr": "^0.1.0",
+    "twilio": "^1.7.0"
   },
   "devDependencies": {
     "grunt": "^0.4.1",
