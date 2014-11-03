@@ -58,3 +58,11 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+var host = (process.env.VCAP_APP_HOST || 'localhost');
+// The port on the DEA for communication with the application:
+var port = (process.env.VCAP_APP_PORT || 3000);
+
+var server = app.listen(port, function() {
+    console.log('Listening on port %d', server.address().port);
+});
