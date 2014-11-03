@@ -3,7 +3,8 @@
 var http = require('http');
 var express = require('express');
 var kraken = require('kraken-js');
-
+//require the Twilio module and create a REST client 
+ 
 
 var options, app, server;
 
