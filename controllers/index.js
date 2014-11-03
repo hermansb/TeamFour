@@ -24,16 +24,15 @@ module.exports = function (router) {
     });
 	
 	
-router.get('/sendtext', function (req, res) {
-	client.messages.create({ 
-		to: "6479091174", 
-		from: "+16475600524", 
-		body: "Did you get this?",   
-	}, function(err, message) { 
-		console.log(message.sid); 
+	router.get('/sendtext', function (req, res) {
+		client.messages.create({ 
+			to: "6479091174", 
+			from: "+16475600524", 
+			body: "Did you get this?",   
+		}, function(err, message) { 
+			console.log(message.sid); 
+		});
 	});
-
-}
 
 
 };
