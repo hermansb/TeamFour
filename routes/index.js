@@ -10,6 +10,13 @@ var base = nano.db.use('database'); // my global nano
 /* GET home page. */
 router.get('/', function(req, res) {
 
+	var fail = false;
+	var unauthenticated = false;
+	var forbidden = false;
+	if (req.query && req.query.fail) {
+		fail = req.query.fail === 'true';
+	}
+
 	//registration
 	if (req.query && req.query.registration) {
 		res.render('registerProfile', {title: "Update Profile"});
