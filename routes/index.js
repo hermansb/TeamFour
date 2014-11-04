@@ -33,7 +33,7 @@ router.get('/dbtrial2', function(req, res) {
 });
 
 router.get('/users', function(req, res) {
-	res.render('index', {title: 'USERS'});
+	res.render('dashboard', {title: 'USERS'});
 });
 
 router.get('/dbtest', isLoggedIn, function (req, res) {
