@@ -62,7 +62,7 @@ router.get('/users', function(req, res) {
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
 		body.rows.forEach(function(doc) {
-		  data.push(doc, null, "\n");
+		  data.push(doc);
 		});
 	  }
 	  
@@ -75,7 +75,9 @@ router.get('/pendingrequests', function(req, res) {
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
 		body.rows.forEach(function(doc) {
-		  data.push(doc, null, "\n");
+  			if(doc.value.request != null && doc.value.request.status == "pending"){
+		  		data.push(doc);
+			}
 		});
 	  }
 	  
@@ -207,7 +209,9 @@ router.get('/requests', isLoggedIn, function(req, res) {
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
 		body.rows.forEach(function(doc) {
-		  data.push(doc, null, "\n");
+			if(doc.value.request != null && doc.value.request.status != "pending"){
+		  data.push(doc);
+		}
 		});
 	  }
 	  
