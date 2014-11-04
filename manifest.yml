@@ -1,0 +1,9 @@
+applications:
+- name: laptopProcurementTool
+  disk_quota: 512M
+  host: laptopProcurementTool
+  command: node index.js
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 128M

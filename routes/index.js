@@ -8,19 +8,19 @@ router.get('/', function(req, res) {
 });
 
 router.get('/sendtext', function (req, res) {
-	client.messages.create({ 
-		to: "6479091164", 
-		from: "+16475600524", 
-		body: "Did you get this?",   
-	}, function(err, message) { 
-		if (err) {
-			console.log('there was an err' + JSON.stringify(err));
-		}
-		else {
-			//console.log(message); 
-			res.send('Text sent! Congratz');
-		}
-	});
+		client.messages.create({ 
+			to: "6479091164", 
+			from: "+16475600524", 
+			body: "Did you get this?",   
+		}, function(err, message) { 
+			if (err) {
+				console.log('there was an err' + JSON.stringify(err));
+			}
+			else {
+				//console.log(message); 
+				res.send('Text sent! Congratz');
+			}
+		});
 		
 });
 
