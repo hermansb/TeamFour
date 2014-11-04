@@ -52,37 +52,24 @@ router.post('/make', function(req, res) {
 
 });
 
-router.post('/make2', function(req, res) {
+// router.post('/make2', function(req, res) {
 
-	var base = nano.db.use('database');
-	var flag = false;
-	base.view('dbdesign', 'listAll', function(err, body) {
-	  if (!err) {
-		body.rows.forEach(function(doc) {
-		  
-		  	if (doc.value.account != null && req.body.email == doc.value.account.user && saltedHash(req.body.password, doc.value.account.hash) == doc.value.account.password) {
-				res.send("IN");
-				flag = true;
-			}
+// 	var base = nano.db.use('database');
+// 	var flag = false;
+// 	base.view('dbdesign', 'listAll', function(err, body) {
+// 	  if (!err) {
+// 		body.rows.forEach(function(doc) {
+// 		  	if (doc.value.account != null && req.body.email == doc.value.account.user && req.body.password == doc.value.account.password) {
+// 				res.send("IN");
+// 				flag = true;
+// 			}
 
-		});
-	  }
-	  if (!flag)
-	  	res.send("NOT IN"); 
-	});
-
-	function saltedHash(password, hash) {
-		passwordCheck(password).verifyAgainst(hash, function(error, verified) {
-			if(error)
-           		throw new Error('Something went wrong!');
-	        if(!verified) {
-	            console.log("Don't try! We got you!");
-	        } else {
-	            console.log("Congratulations you hacked into the system.");
-	        }
-		});
-	}
-});
+// 		});
+// 	  }
+// 	  if (!flag)
+// 	  	res.send("NOT IN"); 
+// 	});
+// });
 
 router.get('/dbtest', function (req, res) {
 	var example = nano.db.use('database');

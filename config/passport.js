@@ -1,4 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
+var nano = require('nano')('https://ada12f18-1a96-412b-be06-55caa0cf0d9c-bluemix:bafd91061af5bf97cfb7d76912bfdef5f2bbc22f50ed574137bf8bda5d22a711@ada12f18-1a96-412b-be06-55caa0cf0d9c-bluemix.cloudant.com');
 
 module.exports = function(passport) {
 
@@ -19,44 +20,47 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
-        // var body = req.body;
+        var body = req.body;
 
-        // var db = Cloudant.use(dbname);
-        // db.find({selector:{username:username}}, function(err, result) {
-        //     if (err){
-        //         console.log("There was an error finding the user: " + err);
-        //         return done(null, false, { message : "There was an error connecting to the database" } );
-        //     } 
-        //     if (result.docs.length == 0){
-        //         console.log("Username was not found");
-        //         return done(null, false, { message : "Username was not found" } );
-        //     }
+        var db = nano.db.use('database');
 
-        //     // user was found, now determine if password matches
-        //     var user = result.docs[0];
-        //     if (bcrypt.compareSync(password, user.password)) {
-        //         console.log("Password matches");
-        //         // all is well, return successful user
-        //          return done(null, user);
-        //     } else {
-        //         console.log("Password is not correct");
-        //         //err = {"reason":"Password is incorrect"};
-        //         return done(null, false, { message :"Password is incorrect"} );
-        //     }                
-        // });
+        console.log('checking db for user credentials...');
+        db.view('dbdesign', 'listAll', function(err, body) {
+            if (!err) {
 
-        console.log('checking credentials...');
+                for(var i = 0; i < body.rows.length; i++)   {
 
-		if (email !== 'admin@skyisthelimit.com') {
-			return done(null, false, { message: "Incorrect username or password" });
-		}
+                    var doc = body.rows[i];
+                    if (doc.value.account != null && email == doc.value.account.user && 
+                        password == doc.value.account.password) {
+                            return done(null, true);
+                    }
+                }
+            }
+            return done(null, false, { message: "Incorrect username or password" });
+        });
 
-		if (password !== 'admin') {
-			return done(null, false, { message: "Incorrect username or password" });
-		}
+        // console.log('checking credentials...');
 
-        console.log("done checking credentials...");
+		// if (email !== 'admin@skyisthelimit.com') {
+		// 	return done(null, false, { message: "Incorrect username or password" });
+		// }
 
-        return done(null, true);
+		// if (password !== 'admin') {
+		// 	return done(null, false, { message: "Incorrect username or password" });
+		// }
+
 	}));
+
+    function saltedHash(password, hash) {
+        passwordCheck(password).verifyAgainst(hash, function(error, verified) {
+            if(error)
+                throw new Error('Something went wrong!');
+            if(!verified) {
+                console.log("Don't try! We got you!");
+            } else {
+                console.log("Congratulations you hacked into the system.");
+            }
+        });
+    };
 }
