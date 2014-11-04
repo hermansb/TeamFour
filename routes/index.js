@@ -101,7 +101,7 @@ router.get('/sendtext', isLoggedIn, function (req, res) {
 });
 
 router.post('/', passport.authenticate('local-login', {
-	successRedirect: '/',
+	successRedirect: '/users',
 	failureRedirect: '/',
 	failureFlash: true
 }));
