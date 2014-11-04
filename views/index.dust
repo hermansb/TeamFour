@@ -29,7 +29,12 @@
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Sign in</button>
+        
       </form>
+      <form class="form-signin" role="form" method="GET" action"/register">
+      <h2 class="form-signin-heading">First time here?</h2>
+        <button name="registration" class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Register</button>
+       </form>
 
     </div> <!-- /container -->
 

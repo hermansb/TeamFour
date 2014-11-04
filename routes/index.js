@@ -16,13 +16,24 @@ router.get('/', function(req, res) {
 	if (req.query && req.query.fail) {
 		fail = req.query.fail === 'true';
 	}
+
+	//registration
+	if (req.query && req.query.registration) {
+		res.render('registerProfile', {title: "Update Profile"});
+	}
+	
 	else if (req.query && req.query.unauthenticated) {
-		unauthenticated = req.query.unauthenticated === 'true';
+		unauthenticated = req.query.unauthenticated;
 	}
 	else if (req.query && req.query.forbidden) {
-		forbidden = req.query.forbidden === 'true';
+		forbidden = req.query.forbidden;
 	}
-  res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
+
+	if (req.isAuthenticated()) {
+		res.redirect('/requests');
+	} else {
+		res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
+	}
 });
 
 router.get('/dbtrial', function(req, res) {
@@ -51,7 +62,7 @@ router.get('/users', function(req, res) {
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
 		body.rows.forEach(function(doc) {
-		  data.push(doc, null, "\n");
+		  data.push(doc);
 		});
 	  }
 	  
@@ -64,7 +75,9 @@ router.get('/pendingrequests', function(req, res) {
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
 		body.rows.forEach(function(doc) {
-		  data.push(doc, null, "\n");
+  			if(doc.value.request != null && doc.value.request.status == "pending"){
+		  		data.push(doc);
+			}
 		});
 	  }
 	  
@@ -190,13 +203,15 @@ router.post('/register', function(req, res)	{
 	});
 });
 
-router.get('/requests', function(req, res) {
+router.get('/requests', isLoggedIn, function(req, res) {
 
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
 		body.rows.forEach(function(doc) {
-		  data.push(doc, null, "\n");
+			if(doc.value.request != null && doc.value.request.status != "pending"){
+		  data.push(doc);
+		}
 		});
 	  }
 	  
