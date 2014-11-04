@@ -39,16 +39,5 @@ module.exports = function(passport) {
             }
             return done(null, false, { message: "Incorrect username or password" });
         });
-
-        // console.log('checking credentials...');
-
-		// if (email !== 'admin@skyisthelimit.com') {
-		// 	return done(null, false, { message: "Incorrect username or password" });
-		// }
-
-		// if (password !== 'admin') {
-		// 	return done(null, false, { message: "Incorrect username or password" });
-		// }
-
 	}));
 }
