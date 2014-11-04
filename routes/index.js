@@ -26,7 +26,6 @@ router.get('/dbtrial', function(req, res) {
 
 });
 
-
 router.get('/dbtrial2', function(req, res) {
 
 	res.render('dbtrial2');
@@ -37,7 +36,18 @@ router.get('/register',function(req,res){
 });
 
 router.get('/users', function(req, res) {
-	res.render('dashboard', {title: 'USERS'});
+
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Users' , data: data});  
+	});
 });
 
 router.post('/makeUser', function(req, res) {
