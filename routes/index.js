@@ -35,6 +35,10 @@ router.get('/register',function(req,res){
 	res.render('register',{title:"REGISTRATION"});
 });
 
+router.get('/users', function(req, res) {
+	res.render('index', {title: 'USERS'});
+});
+
 router.post('/make', function(req, res) {
 
 	var base = nano.db.use('database');
@@ -45,6 +49,26 @@ router.post('/make', function(req, res) {
 			res.send("Error adding to db");
 	});
 
+});
+
+router.post('/make2', function(req, res) {
+
+	var base = nano.db.use('database');
+	var flag = false;
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  
+		  	if (doc.value.account != null && req.body.email == doc.value.account.user && req.body.password == doc.value.account.password) {
+				res.send("IN");
+				flag = true;
+			}
+
+		});
+	  }
+	  if (!flag)
+	  	res.send("NOT IN"); 
+	});
 });
 
 router.get('/dbtest', function (req, res) {
@@ -60,10 +84,6 @@ router.get('/dbtest', function (req, res) {
 	  }
 	});
 	res.send('done');
-});
-
-router.get('/users', function(req, res) {
-	res.render('index', {title: 'USERS'});
 });
 
 router.get('/user', function(req, res) {
@@ -98,7 +118,7 @@ router.get('/sendtext', isLoggedIn, function (req, res) {
 });
 
 router.post('/', passport.authenticate('local-login', {
-	successRedirect: '/users',
+	successRedirect: '/user',
 	failureRedirect: '/',
 	failureFlash: true
 }));
