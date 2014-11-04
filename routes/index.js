@@ -326,7 +326,7 @@ router.post('/request', isLoggedIn, function(req, res) {
 router.get('/request/view/:id', function(req, res) {
 	//Database call, fetch request by id
 	//Then populate the fields below
-	/*res.render('viewRequest',
+	res.render('viewRequest',
 	{ 
 		organizationName: 'Cool Organization',
 		charityNumber: '123456789',
@@ -345,8 +345,9 @@ router.get('/request/view/:id', function(req, res) {
 		requestedAmount: 8,
 		justification: 'We have 8 cool kids who need laptops',
 		additionalInfo: 'Did we mention we are very cool?'
-	});*/
-	
+	});
+
+	/*
 	var requestId = req.params.id;
 
 	//Pull the request object from database
@@ -397,7 +398,7 @@ router.get('/request/view/:id', function(req, res) {
 			additionalInfo: orgResult.requests[yearString].alternateSupply
 		});
 
-	});
+	});*/
 });
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
