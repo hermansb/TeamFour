@@ -40,12 +40,19 @@ router.get('/users', function(req, res) {
 	res.render('index', {title: 'USERS'});
 });
 
-router.post('/make', function(req, res) {
+router.post('/makeUser', function(req, res) {
+
+	var object = {
+		"account": {
+			"user": req.body.InputEmail[0],
+			"password": req.body.InputPassword 
+		}
+	}
 
 	var base = nano.db.use('database');
-	base.insert({ "user": req.body }, null, function(err, body) {
+	base.insert(object, null, function(err, body) {
 		if(!err)
-			res.render('make', {body: JSON.stringify(req.body, null, "\n")});
+			res.render('make', {body: JSON.stringify(body, null, "\n")});
 		else
 			res.send("Error adding to db");
 	});
@@ -154,6 +161,11 @@ router.post('/', passport.authenticate('local-login', {
 	failureRedirect: '/',
 	failureFlash: true
 }));
+
+router.get('/logout', function (req, res, next) {
+	req.logout();
+	res.redirect('/');
+});
 
 function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on
