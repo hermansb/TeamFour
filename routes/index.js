@@ -29,10 +29,19 @@ router.get('/', function(req, res) {
 		forbidden = req.query.forbidden;
 	}
 
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
+
 	if (req.isAuthenticated()) {
 		res.redirect('/requests');
 	} else {
-		res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
+		res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden, privilege: privilege });
 	}
 });
 
@@ -65,8 +74,17 @@ router.get('/users', function(req, res) {
 		  data.push(doc);
 		});
 	  }
+
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
 	  
-	  res.render('dashboard', {title: 'Users' , data: data});  
+	  res.render('dashboard', {title: 'Users' , data: data, privilege: privilege});  
 	});
 });
 
@@ -124,7 +142,18 @@ router.get('/user', isLoggedIn, function(req, res) {
                 }
             if (result.account != null) {
             	var a = doc.value.organization;
+
+					var privilege = "noauth";
+					if (req.isAuthenticated()) {
+						if (req.user.isAdmin == 'true') {
+							privilege = 'admin';
+						} else {
+							privilege = 'user';
+						}
+					}
+
             	res.render('viewUser', {
+            		privilege: privilege,
             		organizationName: a.name,
 					charityNumber: a.charityNumber,
 					contactName: a.contact[0].name,
@@ -144,7 +173,16 @@ router.get('/user', isLoggedIn, function(req, res) {
 					additionalInfo: 'Did we mention we are very cool?'
             	});
             } else {
-            	res.render('viewUser', {} );
+
+        		var privilege = "noauth";
+				if (req.isAuthenticated()) {
+					if (req.user.isAdmin == 'true') {
+						privilege = 'admin';
+					} else {
+						privilege = 'user';
+					}
+				}
+            	res.render('viewUser', {privilege: privilege} );
             }
 	 	} else {
 	 		console.log(err);
@@ -214,8 +252,17 @@ router.get('/requests', isLoggedIn, function(req, res) {
 		}
 		});
 	  }
-	  
-	  res.render('dashboard', {title: 'Requests' , data: data});  
+
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
+	  console.log(privilege);
+	  res.render('dashboard', {title: 'Requests' , data: data, privilege: privilege});  
 	});
 });
 
@@ -236,7 +283,17 @@ router.get('/request', isLoggedIn, function(req, res) {
             if (result.account != null) {
             	var a = doc.value.organization;
 
+				var privilege = "noauth";
+				if (req.isAuthenticated()) {
+					if (req.user.isAdmin == 'true') {
+						privilege = 'admin';
+					} else {
+						privilege = 'user';
+					}
+				}
+
             	res.render('requestForm', { 
+            		privilege: privilege,
             		organizationName: a.name,
 					charityNumber: a.charityNumber,
 					contactName: a.contact[0].name,
@@ -253,7 +310,16 @@ router.get('/request', isLoggedIn, function(req, res) {
 					accomplishments: a.description.accomplishments
             	});
             } else {
-            	res.render('requestForm', { title: 'Create a request' });
+
+        		var privilege = "noauth";
+				if (req.isAuthenticated()) {
+					if (req.user.isAdmin == 'true') {
+						privilege = 'admin';
+					} else {
+						privilege = 'user';
+					}
+				}
+            	res.render('requestForm', { privilege: privilege, title: 'Create a request' });
             }
 	 	} else {
 	 		console.log(err);
