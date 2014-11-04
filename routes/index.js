@@ -286,19 +286,29 @@ router.get('/sendtext', isLoggedIn, function (req, res) {
 });
 
 router.get('/verifyPhone', function(req, res) {
-	client.outgoingCallerIds.create({
-	    friendlyName: "+16475600524",
-	    phoneNumber: req.query.phoneNumber
-	}, function(err, callerId) {
-		if (err) {
-			res.send('error occurred');
-		}
-		else {
-			console.log(JSON.stringify(callerId));
-			res.send(callerId.validation_code);
-		}
-	    res.send(callerId.sid);
+
+	client.outgoingCallerIds.list({ phoneNumber: req.query.phoneNumber }, 
+		function(err, data) {
+			if (data.outgoingCallerIds.length > 0) {
+				res.send('Already registered');
+			}
+			else {
+				client.outgoingCallerIds.create({
+			    friendlyName: "+16475600524",
+			    phoneNumber: req.query.phoneNumber
+				}, function(err, callerId) {
+					if (err) {
+						res.send('error occurred');
+					}
+					else {
+						console.log(JSON.stringify(callerId));
+						res.send(callerId.validation_code);
+					}
+				});
+			}
+
 	});
+	
 
 });
 
