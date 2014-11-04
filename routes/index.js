@@ -30,6 +30,10 @@ router.get('/dbtrial2', function(req, res) {
 	res.render('dbtrial2');
 });
 
+router.get('/register',function(req,res){
+	res.render('register',{title:"REGISTRATION"});
+});
+
 router.post('/make', function(req, res) {
 
 	var base = nano.db.use('database');
@@ -75,9 +79,7 @@ router.get('/request/:requestId', function(req, res) {
 	res.render('index', {title: 'REQUEST ' + requestId});
 });
 
-router.get('/register',function(req,res){
-	res.render('register',{title:"REGISTRATION"});
-})
+
 
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
