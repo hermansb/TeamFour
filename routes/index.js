@@ -41,14 +41,39 @@ router.get('/dbtrial', function(req, res) {
 
 });
 
-
 router.get('/dbtrial2', function(req, res) {
 
 	res.render('dbtrial2');
 });
 
 router.get('/users', function(req, res) {
-	res.render('dashboard', {title: 'USERS'});
+
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Users' , data: data});  
+	});
+});
+
+router.get('/pendingrequests', function(req, res) {
+
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Pending' , data: data});  
+	});
 });
 
 router.get('/dbtest', isLoggedIn,  
@@ -174,7 +199,17 @@ router.post('/user', function(req, res)	{
 });
 
 router.get('/requests', function(req, res) {
-	res.render('index', {title: 'REQUESTS'});
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Requests' , data: data});  
+	});
 });
 
 router.get('/request', function(req, res) {
