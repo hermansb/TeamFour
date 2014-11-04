@@ -99,7 +99,16 @@ router.get('/pendingrequests', function(req, res) {
 		});
 	  }
 	  
-	  res.render('dashboard', {title: 'Pending' , data: data});  
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
+
+	  res.render('dashboard', {privilege: privilege, title: 'Pending' , data: data});  
 	});
 });
 
