@@ -20,9 +20,10 @@ router.get('/', function(req, res) {
 	//registration
 	if (req.query && req.query.registration) {
 		res.render('registerProfile', {title: "Update Profile"});
+
 	}
-	
-	else if (req.query && req.query.unauthenticated) {
+	else {
+	 if (req.query && req.query.unauthenticated) {
 		unauthenticated = req.query.unauthenticated;
 	}
 	else if (req.query && req.query.forbidden) {
@@ -43,6 +44,7 @@ router.get('/', function(req, res) {
 	} else {
 		res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden, privilege: privilege });
 	}
+}
 });
 
 router.get('/dbtrial', function(req, res) {
@@ -503,6 +505,7 @@ router.get('/verifyPhone', function(req, res) {
 			    phoneNumber: req.query.phoneNumber
 				}, function(err, callerId) {
 					if (err) {
+						console.log(JSON.stringify(err));
 						res.send('error occurred');
 					}
 					else {
