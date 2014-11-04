@@ -5,7 +5,12 @@ var nano = require('nano')('https://ada12f18-1a96-412b-be06-55caa0cf0d9c-bluemix
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index', 
+  	{ 
+  		title: 'Express',
+  		privilege: 'admin'
+  	}
+  );
 });
 
 router.get('/dbtrial', function(req, res) {
