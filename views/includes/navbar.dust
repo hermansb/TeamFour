@@ -20,6 +20,7 @@
           <li><a href="/logout">Logout</a></li>
         {/if}
         {@if cond="'{privilege}' == 'user'"}
+          <li><a href="/request">Make a Request</a></li>
           <li><a href="/requests">My Requests</a></li>
           <li><a href="/user">My Profile</a></li>
           <li><a href="/logout">Logout</a></li>
