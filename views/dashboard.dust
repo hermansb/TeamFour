@@ -63,6 +63,25 @@
               {/data}
               </tr></tbody></table>
               {:else}
+                <table id="jtable" class="table table-striped" cellspacing="0" width="100%"><thead><tr>
+                <th>Request ID</th>
+                <th>Status</th>
+                <th>Requesting Org</th>
+                <th>Requested Date</th>
+                <th>Last Updated</th>
+                <th>Amount</th>
+              </tr></thead><tbody>
+              {#data}
+                  <tr>
+                    <td><a href="/request/view/{id}">{id}</a></td>
+                    <td>{value.request.status}</td>
+                    <td>{value.request.requestingOrg}</td>
+                    <td>{value.request.requestedDate}</td>
+                    <td>{value.request.lastUpdated}</td>
+                    <td>{value.request.amount}</td>
+                  </tr>
+              {/data}
+              </tr></tbody></table>
               {/eq}
           </div>
         </div>
