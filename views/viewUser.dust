@@ -1,0 +1,132 @@
+{>"includes/header"/}
+{>"includes/navbar"/}
+<div class="container-fluid">
+	<div class="container">
+		<div class="row overflow-hidden sub-navigation">
+			<div class="f_left">
+				<h3>{organizationName} | #{charityNumber}</h3>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container margin-top-20">
+	<div class="row">
+		<div class="col-md-6 request-details">
+			<!-- Organization Details -->
+			<div class="row">
+				<div class="col-md-6">
+					<h4>Contact Name</h4>
+					<p>{contactName}</p>
+
+					<h4>Contact Address</h4>
+					<p>{contactAddress}</p>
+
+				</div>				
+				<div class="col-md-6">
+					<h4>Work Phone Number</h4>
+					<p>{workPhoneNumber}</p>
+
+					<h4>Home Phone Number</h4>
+					<p>{homePhoneNumber}</p>
+
+					<h4>Mobile Phone Number</h4>
+					<p>{mobilePhoneNumber}</p>
+
+					<h4>Website</h4>
+					<p>{organizationWebsite}</p>
+				</div>
+
+			</div>
+
+			<hr/>
+
+			<h4>Mission Statement</h4>
+			<p>{missionStatement}</p>
+
+			<h4>Organization History</h4>
+			<p>{organizationHistory}</p>
+
+			<h4>Programs and Services</h4>
+			<p>{programsAndServices}</p>
+
+			<h4>Target Populations</h4>
+			<p>{targetPopulations}</p>
+
+			<h4>Program Description</h4>
+			<p>{programDescription}</p>
+
+			<h4>Accomplishments</h4>
+			<p>{accomplishments}</p>
+
+			<h4>Requested Laptop Amount</h4>
+			<p>{requestedAmount}</p>
+
+			<h4>Justification</h4>
+			<p>{justification}</p>
+
+			<h4>Additional Info</h4>
+			<p>{additionalInfo}</p>
+		</div>
+		<div class="col-md-1">
+
+		</div>
+		<div class="col-md-5">
+			<!-- Request Commenting system -->
+			<div class="overflow-hidden">
+				<div class="stat f_left">
+					<div class="circle green">
+						<div class="circleText">
+							23
+						</div>
+					</div>
+					<div class="description">
+						Laptops Received
+					</div>
+				</div>
+				<div class="stat f_left">
+					<div class="circle red">
+						<div class="circleText">
+							!
+						</div>
+					</div>
+					<div class="description">
+						Pending Request
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<h3>Past Requests</h3>
+			<!-- Past Requests -->
+			<table cellspacing="0" cellpadding="0" border="0" class="past-requests">
+				<thead>
+					<tr>
+						<th class="amount">Amount</td>
+						<th class="dateresolved">Date Resolved</td>
+						<th class="status">Status</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="amount">8</td>
+						<td class="dateresolved">August, 05, 2014</td>
+						<td class="status">Delivered and Closed</td>
+					</tr>
+					<tr>
+						<td class="amount">7</td>
+						<td class="dateresolved">April 28, 2014</td>
+						<td class="status">Rejected</td>
+					</tr>
+					<tr>
+						<td class="amount">15</td>
+						<td class="dateresolved">January 01, 2014</td>
+						<td class="status">Delivered and Closed</td>
+					</tr>
+				</tbody>
+
+			</table>
+
+
+		</div>
+	</div>
+</div>
+{>"includes/footer"/}
