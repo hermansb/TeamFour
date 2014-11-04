@@ -7,7 +7,20 @@ var passwordCheck = require('password-hash-and-salt');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+
+	var fail = false;
+	var unauthenticated = false;
+	var forbidden = false;
+	if (req.query && req.query.fail) {
+		fail = req.query.fail === 'true';
+	}
+	else if (req.query && req.query.unauthenticated) {
+		unauthenticated = req.query.unauthenticated === 'true';
+	}
+	else if (req.query && req.query.forbidden) {
+		forbidden = req.query.forbidden === 'true';
+	}
+  res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
 });
 
 router.get('/dbtrial', function(req, res) {
@@ -31,10 +44,6 @@ router.get('/dbtrial2', function(req, res) {
 	res.render('dbtrial2');
 });
 
-router.get('/register',function(req,res){
-	res.render('register',{title:"REGISTRATION"});
-});
-
 router.get('/users', function(req, res) {
 
 	var base = nano.db.use('database');
@@ -50,45 +59,52 @@ router.get('/users', function(req, res) {
 	});
 });
 
-router.post('/makeUser', function(req, res) {
+router.get('/dbtest', isLoggedIn,  
+	function(req, res) {
+		console.log(JSON.stringify(req.user));
+		if (req.user.isAdmin !== 'true') {
+			res.redirect('/?forbidden=true');
 
-	var object = {
-		"account": {
-			"user": req.body.InputEmail[0],
-			"password": req.body.InputPassword 
+		}
+		else {
+			var example = nano.db.use('database');
+			// fetch the primary index
+			example.list(function(err, body){
+			  if (err) {
+				// something went wrong!
+				throw new Error(err);
+			  } else {
+				// print all the documents in our database
+				console.log(body);
+			  }
+			});
+			res.send('done');
 		}
 	}
-
-	var base = nano.db.use('database');
-	base.insert(object, null, function(err, body) {
-		if(!err)
-			res.render('make', {body: JSON.stringify(body, null, "\n")});
-		else
-			res.send("Error adding to db");
-	});
-
-});
-
-
-router.get('/dbtest', isLoggedIn, function (req, res) {
-
-	var example = nano.db.use('database');
-	// fetch the primary index
-	example.list(function(err, body){
-	  if (err) {
-		// something went wrong!
-		throw new Error(err);
-	  } else {
-		// print all the documents in our database
-		console.log(body);
-	  }
-	});
-	res.send('done');
-});
+);
 
 router.get('/user', function(req, res) {
 	//var userId = req.params.userId;
-	res.render('updateProfile', {title: 'Update Profile'});
+	res.render('viewUser',
+	{ 
+		organizationName: 'Cool Organization',
+		charityNumber: '123456789',
+		contactName: 'Dr. Spaceman',
+		contactAddress: '123 Street Street',
+		workPhoneNumber: '416-555-5555',
+		homePhoneNumber: '416-555-5556',
+		mobilePhoneNumber: '416-555-5557',
+		organizationWebsite: 'www.coolorganization.com',
+		missionStatement: 'To provide cool kids a chance to be cool',
+		organizationHistory: 'Weve been cool since being cool was cool',
+		programsAndServices: 'We provide cool programs',
+		targetPopulations: 'Cool kids',
+		programDescription: 'Our program is pretty cool',
+		accomplishments: 'We were voted coolest organization by cool people',
+		requestedAmount: 8,
+		justification: 'We have 8 cool kids who need laptops',
+		additionalInfo: 'Did we mention we are very cool?'
+	});
 });
 
 router.post('/user', function(req, res)	{
@@ -97,6 +113,7 @@ router.post('/user', function(req, res)	{
 
 	var object = {
 		"organization": {
+			"account": {"email": a.InputEmail, "password": a.InputPassword},
 			"name": a.organizationName,
 			"charityNumber" : a.charityNumber,
 			"website": a.website,
@@ -141,13 +158,34 @@ router.get('/requests', function(req, res) {
 	res.render('index', {title: 'REQUESTS'});
 });
 
-router.get('/request/:requestId', function(req, res) {
-	var requestId = req.params.requestId;
-	res.render('index', {title: 'REQUEST ' + requestId});
+router.get('/request', function(req, res) {
+	res.render('requestForm', { title: 'Create a request' });
 });
 
-
-
+router.get('/request/view/:id', function(req, res) {
+	//Database call, fetch request by id
+	//Then populate the fields below
+	res.render('viewRequest',
+	{ 
+		organizationName: 'Cool Organization',
+		charityNumber: '123456789',
+		contactName: 'Dr. Spaceman',
+		contactAddress: '123 Street Street',
+		workPhoneNumber: '416-555-5555',
+		homePhoneNumber: '416-555-5556',
+		mobilePhoneNumber: '416-555-5557',
+		organizationWebsite: 'www.coolorganization.com',
+		missionStatement: 'To provide cool kids a chance to be cool',
+		organizationHistory: 'Weve been cool since being cool was cool',
+		programsAndServices: 'We provide cool programs',
+		targetPopulations: 'Cool kids',
+		programDescription: 'Our program is pretty cool',
+		accomplishments: 'We were voted coolest organization by cool people',
+		requestedAmount: 8,
+		justification: 'We have 8 cool kids who need laptops',
+		additionalInfo: 'Did we mention we are very cool?'
+	});
+});
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
 		client.messages.create({ 
@@ -168,7 +206,7 @@ router.get('/sendtext', isLoggedIn, function (req, res) {
 
 router.post('/', passport.authenticate('local-login', {
 	successRedirect: '/user',
-	failureRedirect: '/',
+	failureRedirect: '/?fail=true',
 	failureFlash: true
 }));
 
@@ -180,10 +218,11 @@ router.get('/logout', function (req, res, next) {
 function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()) {
+    	console.log('authentication successful');
         return next();
     }
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/?unauthenticated=true');
 }
 
 

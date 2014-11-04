@@ -17,11 +17,13 @@
         {@if cond="'{privilege}' == 'admin'"}
           <li><a href="/requests">Requests</a></li>
           <li><a href="/users">Users</a></li>
-        {:else}
+          <li><a href="/logout">Logout</a></li>
+        {/if}
+        {@if cond="'{privilege}' == 'user'"}
           <li><a href="/requests">My Requests</a></li>
           <li><a href="/users">My Profile</a></li>
-        {/if} 
-        <li><a href="/logout">Logout</a></li>
+          <li><a href="/logout">Logout</a></li>
+        {/if}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
