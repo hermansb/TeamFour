@@ -29,6 +29,21 @@ router.get('/dbtrial', function(req, res) {
 
 });
 
+router.get('/dbtest', function (req, res) {
+	var example = nano.db.use('database');
+	// fetch the primary index
+	example.list(function(err, body){
+	  if (err) {
+		// something went wrong!
+		throw new Error(err);
+	  } else {
+		// print all the documents in our database
+		console.log(body);
+	  }
+	});
+	res.send('done');
+});
+
 router.get('/users', function(req, res) {
 	res.render('index', {title: 'USERS'});
 });
