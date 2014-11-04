@@ -229,7 +229,13 @@ router.get('/request', isLoggedIn, function(req, res) {
 					workPhoneNumber: a.contact[0].phoneNumbers.work,
 					homePhoneNumber: a.contact[0].phoneNumbers.home,
 					mobilePhoneNumber: a.contact[0].phoneNumbers.mobile,
-					organizationWebsite: a.website
+					organizationWebsite: a.website,
+					missionStatement: a.description.missionStatement,
+					organizationHistory: a.description.history,
+					programsAndServices: a.description.services,
+					targetPopulations: a.description.targetDemographic,
+					programDescription: a.description.programDescription,
+					accomplishments: a.description.accomplishments
             	});
             } else {
             	res.render('requestForm', { title: 'Create a request' });

@@ -58,7 +58,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Mission Statement</h4>
-				  <textarea name="missionStatement" type="text" class="form-control" placeholder="Mission Statement"></textarea>
+				  <textarea name="missionStatement" type="text" class="form-control" placeholder="Mission Statement">{missionStatement}</textarea>
 				</div>
 			</div>
 		</div>
@@ -66,7 +66,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>History of Organization</h4>
-				  <textarea name="organizationHistory" type="text" class="form-control" placeholder="Provide a brief (200 words, maximum) history of your organization"></textarea>
+				  <textarea name="organizationHistory" type="text" class="form-control" placeholder="Provide a brief (200 words, maximum) history of your organization">{organizationHistory}</textarea>
 				</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Programs and Services</h4>
-				  <textarea name="programsAndServices" type="text" class="form-control" placeholder="Briefly describe your organization's main programs and services"></textarea>
+				  <textarea name="programsAndServices" type="text" class="form-control" placeholder="Briefly describe your organization's main programs and services">{programsAndServices}</textarea>
 				</div>
 			</div>
 		</div>
@@ -82,7 +82,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Target Populations</h4>
-				  <textarea name="targetPopulations" type="text" class="form-control" placeholder="People, neighborhoods and communities served by the program"></textarea>
+				  <textarea name="targetPopulations" type="text" class="form-control" placeholder="People, neighborhoods and communities served by the program">{targetPopulations}</textarea>
 				</div>
 			</div>
 		</div>
@@ -90,7 +90,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Computer program description</h4>
-				  <textarea name="programDescription" type="text" class="form-control" placeholder="Briefly describe the computer mentoring/tutoring program, objectives, and outcomes, providing any relevant statistics."></textarea>
+				  <textarea name="programDescription" type="text" class="form-control" placeholder="Briefly describe the computer mentoring/tutoring program, objectives, and outcomes, providing any relevant statistics.">{programDescription}</textarea>
 				</div>
 			</div>
 		</div>
@@ -98,7 +98,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>(Optional) Accolades and accomplishments</h4>
-				  <textarea name="accomplishments" type="text" class="form-control" placeholder="Provide information on any awards and successes."></textarea>
+				  <textarea name="accomplishments" type="text" class="form-control" placeholder="Provide information on any awards and successes.">{accomplishments}</textarea>
 				</div>
 			</div>
 		</div>
