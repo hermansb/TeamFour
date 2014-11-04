@@ -3,6 +3,7 @@ var router = express.Router();
 var client = require('twilio')('AC3c2fa9b2734379e8254c2b4e938b7c6e', '36a402403a5cb246162bcb4b22a50f2f'); 
 var nano = require('nano')('https://ada12f18-1a96-412b-be06-55caa0cf0d9c-bluemix:bafd91061af5bf97cfb7d76912bfdef5f2bbc22f50ed574137bf8bda5d22a711@ada12f18-1a96-412b-be06-55caa0cf0d9c-bluemix.cloudant.com');
 var passport = require('passport');
+var passwordCheck = require('password-hash-and-salt');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -31,47 +32,12 @@ router.get('/dbtrial2', function(req, res) {
 	res.render('dbtrial2');
 });
 
-router.get('/register',function(req,res){
-	res.render('register',{title:"REGISTRATION"});
-});
-
 router.get('/users', function(req, res) {
-	res.render('index', {title: 'USERS'});
+	res.render('dashboard', {title: 'USERS'});
 });
 
-router.post('/make', function(req, res) {
+router.get('/dbtest', isLoggedIn, function (req, res) {
 
-	var base = nano.db.use('database');
-	base.insert({ "user": req.body }, null, function(err, body) {
-		if(!err)
-			res.render('make', {body: JSON.stringify(req.body, null, "\n")});
-		else
-			res.send("Error adding to db");
-	});
-
-});
-
-router.post('/make2', function(req, res) {
-
-	var base = nano.db.use('database');
-	var flag = false;
-	base.view('dbdesign', 'listAll', function(err, body) {
-	  if (!err) {
-		body.rows.forEach(function(doc) {
-		  
-		  	if (doc.value.account != null && req.body.email == doc.value.account.user && req.body.password == doc.value.account.password) {
-				res.send("IN");
-				flag = true;
-			}
-
-		});
-	  }
-	  if (!flag)
-	  	res.send("NOT IN"); 
-	});
-});
-
-router.get('/dbtest', function (req, res) {
 	var example = nano.db.use('database');
 	// fetch the primary index
 	example.list(function(err, body){
@@ -89,6 +55,53 @@ router.get('/dbtest', function (req, res) {
 router.get('/user', function(req, res) {
 	//var userId = req.params.userId;
 	res.render('updateProfile', {title: 'Update Profile'});
+});
+
+router.post('/user', function(req, res)	{
+
+	var a = req.body;
+
+	var object = {
+		"organization": {
+			"account": {"email": a.InputEmail, "password": a.InputPassword},
+			"name": a.organizationName,
+			"charityNumber" : a.charityNumber,
+			"website": a.website,
+			"contact": [{
+				"name": a.contactName,
+				"address": a.contactAddress,
+				"phoneNumbers": {
+					"work": a.workPhoneNumber,
+					"home": a.homePhoneNumber,
+					"mobile": a.mobilePhoneNumber
+				}
+			}],
+			"description": {
+				"missionStatement": a.missionStatement,
+				"history": a.organizationHistory,
+				"services": [
+					a.programsAndServices
+				],
+				"targetDemographic": [
+					a.targetPopulations
+				],
+				"programDescription": a.programDescription,
+				"accomplishments": [
+					a.accomplishments
+				]
+			},
+			"requests": {},
+			"files": {}
+		}
+	};
+
+	var base = nano.db.use('database');
+	base.insert(object, null, function(err, body) {
+		if(!err)
+			res.send("Organization created");
+		else
+			res.send("Error adding to db");
+	});
 });
 
 router.get('/requests', function(req, res) {
@@ -147,6 +160,11 @@ router.post('/', passport.authenticate('local-login', {
 	failureFlash: true
 }));
 
+router.get('/logout', function (req, res, next) {
+	req.logout();
+	res.redirect('/');
+});
+
 function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()) {
@@ -155,5 +173,7 @@ function isLoggedIn(req, res, next) {
     // if they aren't redirect them to the home page
     res.redirect('/');
 }
+
+
 
 module.exports = router;
