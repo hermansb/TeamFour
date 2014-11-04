@@ -7,7 +7,7 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/sendtext', function (req, res) {
+router.get('/sendtext', isLoggedIn, function (req, res) {
 		client.messages.create({ 
 			to: "6479091164", 
 			from: "+16475600524", 
