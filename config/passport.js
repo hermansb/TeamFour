@@ -35,6 +35,10 @@ module.exports = function(passport) {
                         password == doc.value.account.password) {
                             return done(null, true);
                     }
+                    else if (doc.value.organization != null && email == doc.value.organization.account.email &&
+                     password == doc.value.organization.account.password) {
+                        return done(null, true);
+                    }
                 }
             }
             return done(null, false, { message: "Incorrect username or password" });

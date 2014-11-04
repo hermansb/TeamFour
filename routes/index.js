@@ -32,33 +32,9 @@ router.get('/dbtrial2', function(req, res) {
 	res.render('dbtrial2');
 });
 
-router.get('/register',function(req,res){
-	res.render('register',{title:"REGISTRATION"});
-});
-
 router.get('/users', function(req, res) {
 	res.render('index', {title: 'USERS'});
 });
-
-router.post('/makeUser', function(req, res) {
-
-	var object = {
-		"account": {
-			"user": req.body.InputEmail[0],
-			"password": req.body.InputPassword 
-		}
-	}
-
-	var base = nano.db.use('database');
-	base.insert(object, null, function(err, body) {
-		if(!err)
-			res.render('make', {body: JSON.stringify(body, null, "\n")});
-		else
-			res.send("Error adding to db");
-	});
-
-});
-
 
 router.get('/dbtest', isLoggedIn, function (req, res) {
 
@@ -87,6 +63,7 @@ router.post('/user', function(req, res)	{
 
 	var object = {
 		"organization": {
+			"account": {"email": a.InputEmail, "password": a.InputPassword},
 			"name": a.organizationName,
 			"charityNumber" : a.charityNumber,
 			"website": a.website,
