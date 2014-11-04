@@ -140,7 +140,7 @@ router.get('/user', isLoggedIn, function(req, res) {
 });
 
 router.get('/register', function (req, res) {
-	res.render('updateProfile', {title: "Update Profile"});
+	res.render('registerProfile', {title: "Update Profile"});
 });
 
 router.post('/register', function(req, res)	{
