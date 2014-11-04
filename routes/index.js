@@ -44,9 +44,9 @@ router.get('/users', function(req, res) {
 	res.render('index', {title: 'USERS'});
 });
 
-router.get('/user/:userId', function(req, res) {
-	var userId = req.params.userId;
-	res.render('index', {title: 'USER ' + userId});
+router.get('/user', function(req, res) {
+	//var userId = req.params.userId;
+	res.render('updateProfile', {title: 'Update Profile'});
 });
 
 router.get('/requests', function(req, res) {
