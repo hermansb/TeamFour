@@ -40,6 +40,7 @@
           <h1 class="page-header">{title}</h1>
              <div class="table-responsive">
 
+              {@eq key=title value="Users"}
               <table id="jtable" class="table table-striped" cellspacing="0" width="100%"><thead><tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -59,10 +60,10 @@
                     <td>{value.organization.account.isAdmin}</td>
                   </tr>
                 {/eq}
-                
-
               {/data}
               </tr></tbody></table>
+              {:else}
+              {/eq}
           </div>
         </div>
       </div>
