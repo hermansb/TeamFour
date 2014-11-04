@@ -1,8 +1,8 @@
 applications:
-- name: laptopProcurementTool
+- name: teamfour-hack
   disk_quota: 512M
-  host: laptopProcurementTool
-  command: node index.js
+  host: teamfour-hack
+  command: node app.js
   path: .
   domain: mybluemix.net
   instances: 1
