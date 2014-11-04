@@ -1,0 +1,170 @@
+{>"includes/header"/}
+{>"includes/navbar"/}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Group Application</h1>
+		</div>
+	</div>
+	<form>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Contact Information</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Organization Name</span>
+				  <input name="organizationName" type="text" class="form-control" placeholder="Organization Name">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Charitable Registration Number</span>
+				  <input name="charityNumber" type="text" class="form-control" placeholder="Charitable Registration Number">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Contact Name</span>
+				  <input name="contactName" type="text" class="form-control" placeholder="Contact Name">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Contact Address</span>
+				  <input name="contactAddress" type="text" class="form-control" placeholder="Contact Address">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Work Phone Number</span>
+				  <input name="workPhoneNumber" type="text" class="form-control" placeholder="Work Phone Number">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Home Phone Number</span>
+				  <input name="homePhoneNumber" type="text" class="form-control" placeholder="Home Phone Number">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Mobile Phone Number</span>
+				  <input name="mobilePhoneNumber" type="text" class="form-control" placeholder="Mobile Phone Number">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Organization Website</span>
+				  <input name="website" type="text" class="form-control" placeholder="Organization Website">
+				</div>
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Organization Description</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Mission Statement</span>
+				  <input name="missionStatement" type="text" class="form-control" placeholder="Mission Statement">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">History of Organization</span>
+				  <input name="organizationHistory" type="text" class="form-control" placeholder="Provide a brief (200 words, maximum) history of your organization">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Programs and Services</span>
+				  <input name="programsAndServices" type="text" class="form-control" placeholder="Briefly describe your organization's main programs and services">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Target Populations</span>
+				  <input name="targetPopulations" type="text" class="form-control" placeholder="People, neighborhoods and communities served by the program">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Computer program description</span>
+				  <input name="programDescription" type="text" class="form-control" placeholder="Briefly describe the computer mentoring/tutoring program, objectives, and outcomes, providing any relevant statistics.">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">(Optional) Accolades and accomplishments</span>
+				  <input name="accomplishments" type="text" class="form-control" placeholder="Provide information on any awards and successes.">
+				</div>
+			</div>
+		</div>
+		<!--<hr/>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Computers Needed</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">Specific requested amount</span>
+				  <input name="requestedAmount" type="text" class="form-control" placeholder="Requested amount of computers">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">What would happen if you didn't receive the computers from STL</span>
+				  <input name="justification" type="text" class="form-control" placeholder="What would happen if you didn't receive the computers from STL">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon">(Optional) Please provide any information that could strengthen your application that may not have been covered above.</span>
+				  <input name="additionalInfo" type="text" class="form-control" placeholder="Enter Additional Information">
+				</div>
+			</div>
+		</div>-->
+		<div class="row">
+			<div class="col-md-12">
+		 		<button type="submit" class="btn btn-default">Submit</button>
+		 	</div>
+		 </div>
+	</form>
+</div>
+{>"includes/footer"/}
