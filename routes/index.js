@@ -10,19 +10,23 @@ var base = nano.db.use('database'); // my global nano
 /* GET home page. */
 router.get('/', function(req, res) {
 
-	var fail = false;
-	var unauthenticated = false;
-	var forbidden = false;
-	if (req.query && req.query.fail) {
-		fail = req.query.fail === 'true';
+	//registration
+	if (req.query && req.query.registration) {
+		res.render('registerProfile', {title: "Update Profile"});
 	}
+	
 	else if (req.query && req.query.unauthenticated) {
-		unauthenticated = req.query.unauthenticated === 'true';
+		unauthenticated = req.query.unauthenticated;
 	}
 	else if (req.query && req.query.forbidden) {
-		forbidden = req.query.forbidden === 'true';
+		forbidden = req.query.forbidden;
 	}
-  res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
+
+	if (req.isAuthenticated()) {
+		res.redirect('/requests');
+	} else {
+		res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
+	}
 });
 
 router.get('/dbtrial', function(req, res) {
@@ -192,7 +196,7 @@ router.post('/register', function(req, res)	{
 	});
 });
 
-router.get('/requests', function(req, res) {
+router.get('/requests', isLoggedIn, function(req, res) {
 
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
