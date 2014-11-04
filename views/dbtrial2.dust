@@ -1,9 +1,18 @@
     <div class="container">
 
-	<form id="sendRequest" action="send" method="post">
+	<form id="sendRequest" action="make" method="post">
     <div>
-        <label for="Status">Status: </label>
-        <input type="text" id="email" name="email"></input>
+        <label for="status">Status: </label>
+        <input type="text" name="status"></input> <br>
+		
+        <label for="requser">req user: </label>
+        <input type="text" name="requser"></input> <br>
+		
+		<label for="reqdate">Req date: </label>
+        <input type="text" name="reqdate"></input> <br>
+		
+		<label for="amount">amount: </label>
+        <input type="text" name="amount"></input> <br>
     </div>
 	<input type="submit" value="Submit"></input>
 	</form>

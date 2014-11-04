@@ -19,23 +19,24 @@ router.get('/dbtrial', function(req, res) {
 		});
 	  }
 	  
-	  res.render('dbtrial', { title: 'Dbtrial' , data: data});  
+	  res.render('dbtrial', {title: 'Dbtrial' , data: data});  
 	});
 
 });
 
 router.get('/dbtrial2', function(req, res) {
 
+	res.render('dbtrial2');
+});
+
+router.post('/make', function(req, res) {
+
 	var base = nano.db.use('database');
-	var data = [];
-	base.view('dbdesign', 'listAll', function(err, body) {
-	  if (!err) {
-		body.rows.forEach(function(doc) {
-		  data.push(JSON.stringify(doc, null, "\n"));
-		});
-	  }
-	  
-	  res.render('dbtrial', { title: 'Dbtrial' , data: data});  
+	base.insert({ "user": req.body }, null, function(err, body) {
+		if(!err)
+			res.render('make', {body: JSON.stringify(req.body, null, "\n")});
+		else
+			res.send("Error adding to db");
 	});
 
 });
