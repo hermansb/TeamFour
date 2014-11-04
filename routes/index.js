@@ -27,7 +27,6 @@ router.get('/', function(req, res) {
 
 router.get('/dbtrial', function(req, res) {
 
-	var base = nano.db.use('database');
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -48,7 +47,6 @@ router.get('/dbtrial2', function(req, res) {
 
 router.get('/users', function(req, res) {
 
-	var base = nano.db.use('database');
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -62,8 +60,6 @@ router.get('/users', function(req, res) {
 });
 
 router.get('/pendingrequests', function(req, res) {
-
-	var base = nano.db.use('database');
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -151,7 +147,11 @@ router.get('/user', isLoggedIn, function(req, res) {
 	 });
 });
 
-router.post('/user', function(req, res)	{
+router.get('/register', function (req, res) {
+	res.render('updateProfile', {title: "Update Profile"});
+});
+
+router.post('/register', function(req, res)	{
 
 	var a = req.body;
 
@@ -189,17 +189,16 @@ router.post('/user', function(req, res)	{
 		}
 	};
 
-	var base = nano.db.use('database');
 	base.insert(object, null, function(err, body) {
 		if(!err)
-			res.send("Organization created");
+			res.send("Organization " + a.organizationName + " created");
 		else
 			res.send("Error adding to db");
 	});
 });
 
 router.get('/requests', function(req, res) {
-	var base = nano.db.use('database');
+
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -212,7 +211,23 @@ router.get('/requests', function(req, res) {
 	});
 });
 
-router.get('/request', function(req, res) {
+router.get('/request', isLoggedIn, function(req, res) {
+
+	var email = req.user.email;
+
+	 base.view('dbdesign', 'listAll', function(err, body) {
+	 	var result = {};
+	 	if (!err) {
+	 		for(var i = 0; i < body.rows.length; i++)   {
+                    var doc = body.rows[i];
+                    if (doc.value.organization != null && email == doc.value.organization.account.email) {
+                        result = doc.value.organization;
+                        break;
+                    }
+                }
+			}
+		});
+
 	res.render('requestForm', { title: 'Create a request' });
 });
 

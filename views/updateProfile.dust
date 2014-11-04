@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="InputName">Enter Password</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="InputPassword" id="InputPassword" placeholder="Enter Password" required>
+                    <input type="password" class="form-control" name="InputPassword" id="InputPassword" placeholder="Enter Password" required>
                 </div>
             </div>
 
