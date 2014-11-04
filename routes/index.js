@@ -10,20 +10,27 @@ var base = nano.db.use('database'); // my global nano
 /* GET home page. */
 router.get('/', function(req, res) {
 
-	var fail = false;
-	var unauthenticated = false;
-	var forbidden = false;
-	if (req.query && req.query.fail) {
-		fail = req.query.fail === 'true';
+	//registration
+	if (req.query && req.query.registration) {
+		res.render('registerProfile', {title: "Update Profile"});
 	}
-	else if (req.query && req.query.unauthenticated) {
-		unauthenticated = req.query.unauthenticated === 'true';
+	else {
+		var fail = false;
+		var unauthenticated = false;
+		var forbidden = false;
+		if (req.query && req.query.fail) {
+			fail = req.query.fail === 'true';
+		}
+		else if (req.query && req.query.unauthenticated) {
+			unauthenticated = req.query.unauthenticated === 'true';
+		}
+		else if (req.query && req.query.forbidden) {
+			forbidden = req.query.forbidden === 'true';
+		}
+	  res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
 	}
-	else if (req.query && req.query.forbidden) {
-		forbidden = req.query.forbidden === 'true';
-	}
-  res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
-});
+
+	});
 
 router.get('/dbtrial', function(req, res) {
 
