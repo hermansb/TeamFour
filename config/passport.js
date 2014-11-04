@@ -6,14 +6,16 @@ module.exports = function(passport) {
 	var dbname = 'dbname';
 
 	passport.serializeUser(function(user, done) {
-		done(null, user.username);
+		done(null, user);
 	});
 
 	passport.deserializeUser(function(user, done) {
-		done(null, user.username);
+		done(null, user);
 	});
 
 	passport.use('local-login', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
@@ -43,12 +45,18 @@ module.exports = function(passport) {
         //     }                
         // });
 
-		if (username !== 'admin') {
+        console.log('checking credentials...');
+
+		if (email !== 'admin@skyisthelimit.com') {
 			return done(null, false, { message: "Incorrect username or password" });
 		}
 
 		if (password !== 'admin') {
 			return done(null, false, { message: "Incorrect username or password" });
 		}
+
+        console.log("done checking credentials...");
+
+        return done(null, true);
 	}));
 }
