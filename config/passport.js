@@ -33,14 +33,19 @@ module.exports = function(passport) {
                     var doc = body.rows[i];
                     if (doc.value.account != null && email == doc.value.account.user && 
                         password == doc.value.account.password) {
-                            return done(null, true);
+                            console.log('condition1' + JSON.stringify(doc.value.account));
+                            return done(null, doc.value.account);
                     }
                     else if (doc.value.organization != null && email == doc.value.organization.account.email &&
                      password == doc.value.organization.account.password) {
-                        return done(null, true);
+                        console.log('condition2');
+
+                        return done(null, doc.value.organization.account);
                     }
                 }
             }
+            console.log('neither');
+
             return done(null, false, { message: "Incorrect username or password" });
         });
 	}));

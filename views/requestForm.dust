@@ -1,5 +1,9 @@
 {>"includes/header"/}
 {>"includes/navbar"/}
+<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" language="javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"></script>
+<script type="text/javascript" language="javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 <div class="container group-application">
 	<div class="row">
 		<div class="col-md-12">
@@ -7,58 +11,68 @@
 		</div>
 	</div>
 	<form>
+	<div class="span4 collapse-group">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-3">
 				<h3>Contact Information</h3>
 			</div>
+			<div class="col-md-3">
+				<a class="btn showdetails" data-toggle="collapse" data-target="#section1"><span class="glyphicon glyphicon-plus"></span></a>
+			</div>
 		</div>
-		<div class="row">
+		<div class="row collapse" id="section1">
 			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon input-label">Organization Name</span>
-				  <input name="organizationName" type="text" class="form-control" placeholder="Organization Name">
+				  <input name="organizationName" value="{organizationName}" type="text" class="form-control" placeholder="Organization Name">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Charitable Registration Number</span>
-				  <input name="charityNumber" type="text" class="form-control" placeholder="Charitable Registration Number">
+				  <input name="charityNumber" value="{charityNumber}" type="text" class="form-control" placeholder="Charitable Registration Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Contact Name</span>
-				  <input name="contactName" type="text" class="form-control" placeholder="Contact Name">
+				  <input name="contactName" value="{contactName}" type="text" class="form-control" placeholder="Contact Name">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Contact Address</span>
-				  <input name="contactAddress" type="text" class="form-control" placeholder="Contact Address">
+				  <input name="contactAddress" value="{contactAddress}" type="text" class="form-control" placeholder="Contact Address">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Work Phone Number</span>
-				  <input name="workPhoneNumber" type="text" class="form-control" placeholder="Work Phone Number">
+				  <input name="workPhoneNumber" value="{workPhoneNumber}" type="text" class="form-control" placeholder="Work Phone Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Home Phone Number</span>
-				  <input name="homePhoneNumber" type="text" class="form-control" placeholder="Home Phone Number">
+				  <input name="homePhoneNumber" value="{homePhoneNumber}" type="text" class="form-control" placeholder="Home Phone Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Mobile Phone Number</span>
-				  <input name="mobilePhoneNumber" type="text" class="form-control" placeholder="Mobile Phone Number">
+				  <input name="mobilePhoneNumber" value="{mobilePhoneNumber}" type="text" class="form-control" placeholder="Mobile Phone Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Organization Website</span>
-				  <input name="website" type="text" class="form-control" placeholder="Organization Website">
+				  <input name="website" value="{organizationWebsite}" type="text" class="form-control" placeholder="Organization Website">
 				</div>
 			</div>
 		</div>
+		</div>
 		<hr/>
+		<div class="span4 collapse-group">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-3">
 				<h3>Organization Description</h3>
 			</div>
+			<div class="col-md-3">
+				<a class="btn showdetails" data-toggle="collapse" data-target="#section2"><span class="glyphicon glyphicon-plus"></span></a>
+			</div>
 		</div>
+		<div class="row collapse" id="section2">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Mission Statement</h4>
-				  <textarea name="missionStatement" type="text" class="form-control" placeholder="Mission Statement"></textarea>
+				  <textarea name="missionStatement" type="text" class="form-control" placeholder="Mission Statement">{missionStatement}</textarea>
 				</div>
 			</div>
 		</div>
@@ -66,7 +80,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>History of Organization</h4>
-				  <textarea name="organizationHistory" type="text" class="form-control" placeholder="Provide a brief (200 words, maximum) history of your organization"></textarea>
+				  <textarea name="organizationHistory" type="text" class="form-control" placeholder="Provide a brief (200 words, maximum) history of your organization">{organizationHistory}</textarea>
 				</div>
 			</div>
 		</div>
@@ -74,7 +88,7 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Programs and Services</h4>
-				  <textarea name="programsAndServices" type="text" class="form-control" placeholder="Briefly describe your organization's main programs and services"></textarea>
+				  <textarea name="programsAndServices" type="text" class="form-control" placeholder="Briefly describe your organization's main programs and services">{programsAndServices}</textarea>
 				</div>
 			</div>
 		</div>
@@ -82,15 +96,16 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Target Populations</h4>
-				  <textarea name="targetPopulations" type="text" class="form-control" placeholder="People, neighborhoods and communities served by the program"></textarea>
+				  <textarea name="targetPopulations" type="text" class="form-control" placeholder="People, neighborhoods and communities served by the program">{targetPopulations}</textarea>
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>Computer program description</h4>
-				  <textarea name="programDescription" type="text" class="form-control" placeholder="Briefly describe the computer mentoring/tutoring program, objectives, and outcomes, providing any relevant statistics."></textarea>
+				  <textarea name="programDescription" type="text" class="form-control" placeholder="Briefly describe the computer mentoring/tutoring program, objectives, and outcomes, providing any relevant statistics.">{programDescription}</textarea>
 				</div>
 			</div>
 		</div>
@@ -98,16 +113,23 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <h4>(Optional) Accolades and accomplishments</h4>
-				  <textarea name="accomplishments" type="text" class="form-control" placeholder="Provide information on any awards and successes."></textarea>
+				  <textarea name="accomplishments" type="text" class="form-control" placeholder="Provide information on any awards and successes.">{accomplishments}</textarea>
 				</div>
 			</div>
 		</div>
+		</div>
+</div>
 		<hr/>
+		<div class="span4 collapse-group">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-3">
 				<h3>Computers Needed</h3>
 			</div>
+			<div class="col-md-3">
+				<a class="btn showdetails" data-toggle="collapse" data-target="#section3"><span class="glyphicon glyphicon-plus"></span></a>
+			</div>
 		</div>
+		<div class="row collapse" id="section3">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
@@ -153,6 +175,7 @@
 				  <textarea name="additionalInfo" type="text" class="form-control" placeholder="Enter Additional Information"></textarea>
 				</div>
 			</div>
+		</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">

@@ -1,6 +1,22 @@
 {>"includes/header"/}
   
     {>"includes/navbar"/}
+
+    {@if cond="{fail} === true"}
+      <div class="alert alert-danger" role="alert">
+        <strong>Oh snap!</strong> You must've entered the wrong email or password.
+      </div>
+    {/if}
+    {@if cond="{unauthenticated} === true"}
+      <div class="alert alert-danger" role="alert">
+        <strong>Denied!</strong> You tried to request a page you don't have access to.
+      </div>
+    {/if}
+    {@if cond="{forbidden} === true"}
+      <div class="alert alert-danger" role="alert">
+        <strong>Denied!</strong> You tried to request a page you don't have access to.
+      </div>
+    {/if}
     <div class="container">
 
       <form class="form-signin" role="form" method="post">
