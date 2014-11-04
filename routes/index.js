@@ -279,6 +279,31 @@ router.post('/request', isLoggedIn, function(req, res) {
 				res.send("Error adding to db");
 		});
 
+		var orgEmail = object.value.organization.account.email;
+		var firstDate = new Date();
+		var initialMessage = "Request created by " +  + " on " + firstDate;
+
+		var requestDoc = {
+			"request": {
+				status: "pending",
+				requestingOrg: orgEmail,
+				requestedDate: firstDate,
+				lastUpdated: firstDate,
+				amount: a.numberOfLaptops,
+				messages: [{
+					"user": orgEmail,
+					"date": firstDate,
+					"message": initialMessage
+				}]
+			}
+		};
+
+		base.insert(requestDoc, null, function(err, body) {
+			if(!err)
+				console.log("Request document created");
+			else
+				console.log("Error adding request document")
+		});
    });
 
 });
