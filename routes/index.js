@@ -19,25 +19,46 @@ router.get('/dbtrial', function(req, res) {
 		});
 	  }
 	  
-	  res.render('dbtrial', { title: 'Dbtrial' , data: data});  
+	  res.render('dbtrial', {title: 'Dbtrial' , data: data});  
 	});
 
 });
 
+
 router.get('/dbtrial2', function(req, res) {
 
+	res.render('dbtrial2');
+});
+
+router.get('/register',function(req,res){
+	res.render('register',{title:"REGISTRATION"});
+});
+
+router.post('/make', function(req, res) {
+
 	var base = nano.db.use('database');
-	var data = [];
-	base.view('dbdesign', 'listAll', function(err, body) {
-	  if (!err) {
-		body.rows.forEach(function(doc) {
-		  data.push(JSON.stringify(doc, null, "\n"));
-		});
-	  }
-	  
-	  res.render('dbtrial', { title: 'Dbtrial' , data: data});  
+	base.insert({ "user": req.body }, null, function(err, body) {
+		if(!err)
+			res.render('make', {body: JSON.stringify(req.body, null, "\n")});
+		else
+			res.send("Error adding to db");
 	});
 
+});
+
+router.get('/dbtest', function (req, res) {
+	var example = nano.db.use('database');
+	// fetch the primary index
+	example.list(function(err, body){
+	  if (err) {
+		// something went wrong!
+		throw new Error(err);
+	  } else {
+		// print all the documents in our database
+		console.log(body);
+	  }
+	});
+	res.send('done');
 });
 
 router.get('/users', function(req, res) {
@@ -57,6 +78,8 @@ router.get('/request/:requestId', function(req, res) {
 	var requestId = req.params.requestId;
 	res.render('index', {title: 'REQUEST ' + requestId});
 });
+
+
 
 
 router.get('/sendtext', isLoggedIn, function (req, res) {

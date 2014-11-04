@@ -1,5 +1,5 @@
     <div class="container">
 
-	#{title}
+	New user registered as: {body} <br>
 
     </div> <!-- /container -->
