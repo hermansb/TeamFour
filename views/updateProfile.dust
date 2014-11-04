@@ -1,27 +1,7 @@
 {>"includes/header"/}
 {>"includes/navbar"/}
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<h1>Group Application</h1>
-		</div>
-	</div>
-	<form method="post">
-
-			<div class="form-group">
-                <label for="InputEmail">Enter Email</label>
-                <div class="input-group">
-                    <input type="email" class="form-control" id="InputEmailFirst" name="InputEmail" placeholder="Enter Email" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="InputName">Enter Password</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" name="InputPassword" id="InputPassword" placeholder="Enter Password" required>
-                </div>
-            </div>
-
-		<div class="row">
+<div class="container-fluid group-application">
+			<div class="row">
 			<div class="col-md-12">
 				<h3>Contact Information</h3>
 			</div>
@@ -29,61 +9,33 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">Organization Name</span>
+				  <span class="input-group-addon input-label">Organization Name</span>
 				  <input name="organizationName" type="text" class="form-control" placeholder="Organization Name">
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon">Charitable Registration Number</span>
 				  <input name="charityNumber" type="text" class="form-control" placeholder="Charitable Registration Number">
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon">Contact Name</span>
 				  <input name="contactName" type="text" class="form-control" placeholder="Contact Name">
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon">Contact Address</span>
 				  <input name="contactAddress" type="text" class="form-control" placeholder="Contact Address">
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon">Work Phone Number</span>
 				  <input name="workPhoneNumber" type="text" class="form-control" placeholder="Work Phone Number">
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon">Home Phone Number</span>
 				  <input name="homePhoneNumber" type="text" class="form-control" placeholder="Home Phone Number">
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon">Mobile Phone Number</span>
 				  <input name="mobilePhoneNumber" type="text" class="form-control" placeholder="Mobile Phone Number">
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon">Organization Website</span>
 				  <input name="website" type="text" class="form-control" placeholder="Organization Website">
@@ -99,48 +51,48 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">Mission Statement</span>
-				  <input name="missionStatement" type="text" class="form-control" placeholder="Mission Statement">
+				  <h4>Mission Statement</h4>
+				  <textarea name="missionStatement" type="text" class="form-control" placeholder="Mission Statement"></textarea>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">History of Organization</span>
-				  <input name="organizationHistory" type="text" class="form-control" placeholder="Provide a brief (200 words, maximum) history of your organization">
+				  <h4>History of Organization</h4>
+				  <textarea name="organizationHistory" type="text" class="form-control" placeholder="Provide a brief (200 words, maximum) history of your organization"></textarea>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">Programs and Services</span>
-				  <input name="programsAndServices" type="text" class="form-control" placeholder="Briefly describe your organization's main programs and services">
+				  <h4>Programs and Services</h4>
+				  <textarea name="programsAndServices" type="text" class="form-control" placeholder="Briefly describe your organization's main programs and services"></textarea>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">Target Populations</span>
-				  <input name="targetPopulations" type="text" class="form-control" placeholder="People, neighborhoods and communities served by the program">
+				  <h4>Target Populations</h4>
+				  <textarea name="targetPopulations" type="text" class="form-control" placeholder="People, neighborhoods and communities served by the program"></textarea>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">Computer program description</span>
-				  <input name="programDescription" type="text" class="form-control" placeholder="Briefly describe the computer mentoring/tutoring program, objectives, and outcomes, providing any relevant statistics.">
+				  <h4>Computer program description</h4>
+				  <textarea name="programDescription" type="text" class="form-control" placeholder="Briefly describe the computer mentoring/tutoring program, objectives, and outcomes, providing any relevant statistics."></textarea>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">(Optional) Accolades and accomplishments</span>
-				  <input name="accomplishments" type="text" class="form-control" placeholder="Provide information on any awards and successes.">
+				  <h4>(Optional) Accolades and accomplishments</h4>
+				  <textarea name="accomplishments" type="text" class="form-control" placeholder="Provide information on any awards and successes."></textarea>
 				</div>
 			</div>
 		</div>
