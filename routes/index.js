@@ -37,7 +37,7 @@ router.get('/register',function(req,res){
 });
 
 router.get('/users', function(req, res) {
-	res.render('index', {title: 'USERS'});
+	res.render('dashboard', {title: 'USERS'});
 });
 
 router.post('/makeUser', function(req, res) {
