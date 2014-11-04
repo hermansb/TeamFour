@@ -245,6 +245,43 @@ router.get('/request', isLoggedIn, function(req, res) {
 	 });
 });
 
+router.post('/request', isLoggedIn, function(req, res) {
+	
+	var a = req.body;
+	var object = {};
+	var result = {};
+	
+	//base get document based on profile fields in /request
+	base.view('dbdesign', 'listAll', function(err, body) {
+	 	if (!err) {
+	 		for(var i = 0; i < body.rows.length; i++)   {
+
+	 			if (body.rows[i].value.organization != null && a.charityNumber == body.rows[i].value.organization.charityNumber)
+	 				result = body.rows[i];
+            }
+        }
+   
+    object = result;
+
+	object.value.organization.requests[2014] = {
+		"requestedAmount": a.numberOfLaptops,
+		"alternateSupply": a.justification,
+		"strengtheningInformation": a.additionalInfo
+	};
+
+
+		//insert new document on old, overwriting request by year if needed
+		base.insert(object, result, function(err, body) {
+			if(!err)
+				res.send("Updated organization request");
+			else
+				res.send("Error adding to db");
+		});
+
+   });
+
+});
+
 router.get('/request/view/:id', function(req, res) {
 	//Database call, fetch request by id
 	//Then populate the fields below
