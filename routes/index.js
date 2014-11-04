@@ -58,6 +58,10 @@ router.get('/request/:requestId', function(req, res) {
 	res.render('index', {title: 'REQUEST ' + requestId});
 });
 
+router.get('/register',function(req,res){
+	res.render('register',{title:"REGISTRATION"});
+})
+
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
 		client.messages.create({ 
