@@ -7,7 +7,20 @@ var passwordCheck = require('password-hash-and-salt');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+
+	var fail = false;
+	var unauthenticated = false;
+	var forbidden = false;
+	if (req.query && req.query.fail) {
+		fail = req.query.fail === 'true';
+	}
+	else if (req.query && req.query.unauthenticated) {
+		unauthenticated = req.query.unauthenticated === 'true';
+	}
+	else if (req.query && req.query.forbidden) {
+		forbidden = req.query.forbidden === 'true';
+	}
+  res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
 });
 
 router.get('/dbtrial', function(req, res) {
@@ -36,21 +49,29 @@ router.get('/users', function(req, res) {
 	res.render('dashboard', {title: 'USERS'});
 });
 
-router.get('/dbtest', isLoggedIn, function (req, res) {
+router.get('/dbtest', isLoggedIn,  
+	function(req, res) {
+		console.log(JSON.stringify(req.user));
+		if (req.user.isAdmin !== 'true') {
+			res.redirect('/?forbidden=true');
 
-	var example = nano.db.use('database');
-	// fetch the primary index
-	example.list(function(err, body){
-	  if (err) {
-		// something went wrong!
-		throw new Error(err);
-	  } else {
-		// print all the documents in our database
-		console.log(body);
-	  }
-	});
-	res.send('done');
-});
+		}
+		else {
+			var example = nano.db.use('database');
+			// fetch the primary index
+			example.list(function(err, body){
+			  if (err) {
+				// something went wrong!
+				throw new Error(err);
+			  } else {
+				// print all the documents in our database
+				console.log(body);
+			  }
+			});
+			res.send('done');
+		}
+	}
+);
 
 router.get('/user', function(req, res) {
 	//var userId = req.params.userId;
@@ -175,7 +196,7 @@ router.get('/sendtext', isLoggedIn, function (req, res) {
 
 router.post('/', passport.authenticate('local-login', {
 	successRedirect: '/user',
-	failureRedirect: '/',
+	failureRedirect: '/?fail=true',
 	failureFlash: true
 }));
 
@@ -187,10 +208,11 @@ router.get('/logout', function (req, res, next) {
 function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()) {
+    	console.log('authentication successful');
         return next();
     }
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/?unauthenticated=true');
 }
 
 
