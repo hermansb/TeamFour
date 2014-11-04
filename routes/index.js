@@ -51,25 +51,25 @@ router.post('/make', function(req, res) {
 
 });
 
-router.post('/make2', function(req, res) {
+// router.post('/make2', function(req, res) {
 
-	var base = nano.db.use('database');
-	var flag = false;
-	base.view('dbdesign', 'listAll', function(err, body) {
-	  if (!err) {
-		body.rows.forEach(function(doc) {
+// 	var base = nano.db.use('database');
+// 	var flag = false;
+// 	base.view('dbdesign', 'listAll', function(err, body) {
+// 	  if (!err) {
+// 		body.rows.forEach(function(doc) {
 		  
-		  	if (doc.value.account != null && req.body.email == doc.value.account.user && req.body.password == doc.value.account.password) {
-				res.send("IN");
-				flag = true;
-			}
+// 		  	if (doc.value.account != null && req.body.email == doc.value.account.user && req.body.password == doc.value.account.password) {
+// 				res.send("IN");
+// 				flag = true;
+// 			}
 
-		});
-	  }
-	  if (!flag)
-	  	res.send("NOT IN"); 
-	});
-});
+// 		});
+// 	  }
+// 	  if (!flag)
+// 	  	res.send("NOT IN"); 
+// 	});
+// });
 
 router.get('/dbtest', function (req, res) {
 	var example = nano.db.use('database');
