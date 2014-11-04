@@ -16,35 +16,35 @@
 			<div class="col-md-12">
 				<div class="input-group">
 				  <span class="input-group-addon input-label">Organization Name</span>
-				  <input name="organizationName" type="text" class="form-control" placeholder="Organization Name">
+				  <input name="organizationName" value="{organizationName}" type="text" class="form-control" placeholder="Organization Name">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Charitable Registration Number</span>
-				  <input name="charityNumber" type="text" class="form-control" placeholder="Charitable Registration Number">
+				  <input name="charityNumber" value="{charityNumber}" type="text" class="form-control" placeholder="Charitable Registration Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Contact Name</span>
-				  <input name="contactName" type="text" class="form-control" placeholder="Contact Name">
+				  <input name="contactName" value="{contactName}" type="text" class="form-control" placeholder="Contact Name">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Contact Address</span>
-				  <input name="contactAddress" type="text" class="form-control" placeholder="Contact Address">
+				  <input name="contactAddress" value="{contactAddress}" type="text" class="form-control" placeholder="Contact Address">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Work Phone Number</span>
-				  <input name="workPhoneNumber" type="text" class="form-control" placeholder="Work Phone Number">
+				  <input name="workPhoneNumber" value="{workPhoneNumber}" type="text" class="form-control" placeholder="Work Phone Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Home Phone Number</span>
-				  <input name="homePhoneNumber" type="text" class="form-control" placeholder="Home Phone Number">
+				  <input name="homePhoneNumber" value="{homePhoneNumber}" type="text" class="form-control" placeholder="Home Phone Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Mobile Phone Number</span>
-				  <input name="mobilePhoneNumber" type="text" class="form-control" placeholder="Mobile Phone Number">
+				  <input name="mobilePhoneNumber" value="{mobilePhoneNumber}" type="text" class="form-control" placeholder="Mobile Phone Number">
 				</div>
 				<div class="input-group">
 				  <span class="input-group-addon">Organization Website</span>
-				  <input name="website" type="text" class="form-control" placeholder="Organization Website">
+				  <input name="website" value="{organizationWebsite}" type="text" class="form-control" placeholder="Organization Website">
 				</div>
 			</div>
 		</div>

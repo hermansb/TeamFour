@@ -102,7 +102,6 @@ router.get('/dbtest', isLoggedIn,
 
 router.get('/user', isLoggedIn, function(req, res) {
 	//var userId = req.params.userId;
-	console.log(JSON.stringify(req.user));
 	var email = req.user.email;
 
 	 base.view('dbdesign', 'listAll', function(err, body) {
@@ -114,12 +113,6 @@ router.get('/user', isLoggedIn, function(req, res) {
                         result = doc.value.organization;
                         break;
                     }
-                    // else if (doc.value.organization != null && email == doc.value.organization.account.email &&
-                    //  password == doc.value.organization.account.password) {
-                    //     console.log('condition2');
-                    // console.log('condition1' + JSON.stringify(doc.value.organization.account));
-                    //     return done(null, doc.value.organization.account);
-                    // }
                 }
             if (result.account != null) {
             	var a = doc.value.organization;
@@ -212,8 +205,58 @@ router.get('/requests', function(req, res) {
 	});
 });
 
-router.get('/request', function(req, res) {
-	res.render('requestForm', { title: 'Create a request' });
+router.get('/request', isLoggedIn, function(req, res) {
+	var email = req.user.email;
+
+	 base.view('dbdesign', 'listAll', function(err, body) {
+	 	var result = {};
+	 	if (!err) {
+	 		for(var i = 0; i < body.rows.length; i++)   {
+                var doc = body.rows[i];
+                if (doc.value.organization != null && email == doc.value.organization.account.email) {
+                    result = doc.value.organization;
+                    break;
+               	}
+            }
+            if (result.account != null) {
+            	var a = doc.value.organization;
+     //        	res.render('viewUser', {
+     //        		organizationName: a.name,
+					// charityNumber: a.charityNumber,
+					// contactName: a.contact[0].name,
+					// contactAddress: a.contact[0].address,
+					// workPhoneNumber: a.contact[0].phoneNumbers.work,
+					// homePhoneNumber: a.contact[0].phoneNumbers.home,
+					// mobilePhoneNumber: a.contact[0].phoneNumbers.mobile,
+					// organizationWebsite: a.website,
+					// missionStatement: a.description.missionStatement,
+					// organizationHistory: a.description.history,
+					// programsAndServices: a.description.services,
+					// targetPopulations: a.description.targetDemographic,
+					// programDescription: a.description.programDescription,
+					// accomplishments: a.description.accomplishments,
+					// requestedAmount: 8,
+					// justification: 'We have 8 cool kids who need laptops',
+					// additionalInfo: 'Did we mention we are very cool?'
+     //        	});
+
+            	res.render('requestForm', { 
+            		organizationName: a.name,
+					charityNumber: a.charityNumber,
+					contactName: a.contact[0].name,
+					contactAddress: a.contact[0].address,
+					workPhoneNumber: a.contact[0].phoneNumbers.work,
+					homePhoneNumber: a.contact[0].phoneNumbers.home,
+					mobilePhoneNumber: a.contact[0].phoneNumbers.mobile,
+					organizationWebsite: a.website
+            	});
+            } else {
+            	res.render('requestForm', { title: 'Create a request' });
+            }
+	 	} else {
+	 		console.log(err);
+	 	}
+	 });
 });
 
 router.get('/request/view/:id', function(req, res) {
