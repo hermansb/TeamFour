@@ -75,12 +75,9 @@ router.get('/requests', function(req, res) {
 	res.render('index', {title: 'REQUESTS'});
 });
 
-router.get('/request/:requestId', function(req, res) {
-	var requestId = req.params.requestId;
-	res.render('index', {title: 'REQUEST ' + requestId});
+router.get('/request', function(req, res) {
+	res.render('requestForm', { title: 'Create a request' });
 });
-
-
 
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
