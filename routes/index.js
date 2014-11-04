@@ -27,7 +27,6 @@ router.get('/', function(req, res) {
 
 router.get('/dbtrial', function(req, res) {
 
-	var base = nano.db.use('database');
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -48,7 +47,6 @@ router.get('/dbtrial2', function(req, res) {
 
 router.get('/users', function(req, res) {
 
-	var base = nano.db.use('database');
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -62,8 +60,6 @@ router.get('/users', function(req, res) {
 });
 
 router.get('/pendingrequests', function(req, res) {
-
-	var base = nano.db.use('database');
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -144,7 +140,11 @@ router.get('/user', isLoggedIn, function(req, res) {
 	 });
 });
 
-router.post('/user', function(req, res)	{
+router.get('/register', function (req, res) {
+	res.render('updateProfile', {title: "Update Profile"});
+});
+
+router.post('/register', function(req, res)	{
 
 	var a = req.body;
 
@@ -182,17 +182,16 @@ router.post('/user', function(req, res)	{
 		}
 	};
 
-	var base = nano.db.use('database');
 	base.insert(object, null, function(err, body) {
 		if(!err)
-			res.send("Organization created");
+			res.send("Organization " + a.organizationName + " created");
 		else
 			res.send("Error adding to db");
 	});
 });
 
 router.get('/requests', function(req, res) {
-	var base = nano.db.use('database');
+
 	var data = [];
 	base.view('dbdesign', 'listAll', function(err, body) {
 	  if (!err) {
@@ -206,6 +205,7 @@ router.get('/requests', function(req, res) {
 });
 
 router.get('/request', isLoggedIn, function(req, res) {
+
 	var email = req.user.email;
 
 	 base.view('dbdesign', 'listAll', function(err, body) {
@@ -220,25 +220,6 @@ router.get('/request', isLoggedIn, function(req, res) {
             }
             if (result.account != null) {
             	var a = doc.value.organization;
-     //        	res.render('viewUser', {
-     //        		organizationName: a.name,
-					// charityNumber: a.charityNumber,
-					// contactName: a.contact[0].name,
-					// contactAddress: a.contact[0].address,
-					// workPhoneNumber: a.contact[0].phoneNumbers.work,
-					// homePhoneNumber: a.contact[0].phoneNumbers.home,
-					// mobilePhoneNumber: a.contact[0].phoneNumbers.mobile,
-					// organizationWebsite: a.website,
-					// missionStatement: a.description.missionStatement,
-					// organizationHistory: a.description.history,
-					// programsAndServices: a.description.services,
-					// targetPopulations: a.description.targetDemographic,
-					// programDescription: a.description.programDescription,
-					// accomplishments: a.description.accomplishments,
-					// requestedAmount: 8,
-					// justification: 'We have 8 cool kids who need laptops',
-					// additionalInfo: 'Did we mention we are very cool?'
-     //        	});
 
             	res.render('requestForm', { 
             		organizationName: a.name,

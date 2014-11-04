@@ -31,10 +31,10 @@ module.exports = function(passport) {
                 for(var i = 0; i < body.rows.length; i++)   {
 
                     var doc = body.rows[i];
-                    if (doc.value.organization != null && email == doc.value.organization.account.user && 
-                        password == doc.value.organization.account.password) {
-                            console.log('condition1' + JSON.stringify(doc.value.organization.account));
-                            return done(null, doc.value.organization.account);
+                    if (doc.value.account != null && email == doc.value.account.user && 
+                        password == doc.value.account.password) {
+                            console.log('condition1' + JSON.stringify(doc.value.account));
+                            return done(null, doc.value.account);
                     }
                     else if (doc.value.organization != null && email == doc.value.organization.account.email &&
                      password == doc.value.organization.account.password) {
