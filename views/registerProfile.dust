@@ -80,7 +80,13 @@
     						url: url,
     						cache: false, 
     						success: function(verificationCode) {
-    							alert('Please enter the following verification code when you get a phone call: ' + verificationCode);
+	    						if (verificationCode == 'Already registered') {
+	    							alert('You are already registered.');
+	    						}
+	    						else {
+	    							alert('Please enter the following verification code when you get a phone call: ' + verificationCode);
+	    						}
+    							
     						}
     					});
 					});
