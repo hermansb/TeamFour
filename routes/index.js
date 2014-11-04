@@ -5,6 +5,8 @@ var nano = require('nano')('https://ada12f18-1a96-412b-be06-55caa0cf0d9c-bluemix
 var passport = require('passport');
 var passwordCheck = require('password-hash-and-salt');
 
+var base = nano.db.use('database'); // my global nano
+
 /* GET home page. */
 router.get('/', function(req, res) {
 
@@ -39,14 +41,39 @@ router.get('/dbtrial', function(req, res) {
 
 });
 
-
 router.get('/dbtrial2', function(req, res) {
 
 	res.render('dbtrial2');
 });
 
 router.get('/users', function(req, res) {
-	res.render('dashboard', {title: 'USERS'});
+
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Users' , data: data});  
+	});
+});
+
+router.get('/pendingrequests', function(req, res) {
+
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Pending' , data: data});  
+	});
 });
 
 router.get('/dbtest', isLoggedIn,  
@@ -73,28 +100,55 @@ router.get('/dbtest', isLoggedIn,
 	}
 );
 
-router.get('/user', function(req, res) {
+router.get('/user', isLoggedIn, function(req, res) {
 	//var userId = req.params.userId;
-	res.render('viewUser',
-	{ 
-		organizationName: 'Cool Organization',
-		charityNumber: '123456789',
-		contactName: 'Dr. Spaceman',
-		contactAddress: '123 Street Street',
-		workPhoneNumber: '416-555-5555',
-		homePhoneNumber: '416-555-5556',
-		mobilePhoneNumber: '416-555-5557',
-		organizationWebsite: 'www.coolorganization.com',
-		missionStatement: 'To provide cool kids a chance to be cool',
-		organizationHistory: 'Weve been cool since being cool was cool',
-		programsAndServices: 'We provide cool programs',
-		targetPopulations: 'Cool kids',
-		programDescription: 'Our program is pretty cool',
-		accomplishments: 'We were voted coolest organization by cool people',
-		requestedAmount: 8,
-		justification: 'We have 8 cool kids who need laptops',
-		additionalInfo: 'Did we mention we are very cool?'
-	});
+	console.log(JSON.stringify(req.user));
+	var email = req.user.email;
+
+	 base.view('dbdesign', 'listAll', function(err, body) {
+	 	var result = {};
+	 	if (!err) {
+	 		for(var i = 0; i < body.rows.length; i++)   {
+                    var doc = body.rows[i];
+                    if (doc.value.organization != null && email == doc.value.organization.account.email) {
+                        result = doc.value.organization;
+                        break;
+                    }
+                    // else if (doc.value.organization != null && email == doc.value.organization.account.email &&
+                    //  password == doc.value.organization.account.password) {
+                    //     console.log('condition2');
+                    // console.log('condition1' + JSON.stringify(doc.value.organization.account));
+                    //     return done(null, doc.value.organization.account);
+                    // }
+                }
+            if (result.account != null) {
+            	var a = doc.value.organization;
+            	res.render('viewUser', {
+            		organizationName: a.name,
+					charityNumber: a.charityNumber,
+					contactName: a.contact[0].name,
+					contactAddress: a.contact[0].address,
+					workPhoneNumber: a.contact[0].phoneNumbers.work,
+					homePhoneNumber: a.contact[0].phoneNumbers.home,
+					mobilePhoneNumber: a.contact[0].phoneNumbers.mobile,
+					organizationWebsite: a.website,
+					missionStatement: a.description.missionStatement,
+					organizationHistory: a.description.history,
+					programsAndServices: a.description.services,
+					targetPopulations: a.description.targetDemographic,
+					programDescription: a.description.programDescription,
+					accomplishments: a.description.accomplishments,
+					requestedAmount: 8,
+					justification: 'We have 8 cool kids who need laptops',
+					additionalInfo: 'Did we mention we are very cool?'
+            	});
+            } else {
+            	res.render('viewUser', {} );
+            }
+	 	} else {
+	 		console.log(err);
+	 	}
+	 });
 });
 
 router.post('/user', function(req, res)	{
@@ -145,7 +199,17 @@ router.post('/user', function(req, res)	{
 });
 
 router.get('/requests', function(req, res) {
-	res.render('index', {title: 'REQUESTS'});
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Requests' , data: data});  
+	});
 });
 
 router.get('/request', function(req, res) {
