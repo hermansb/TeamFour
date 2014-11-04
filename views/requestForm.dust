@@ -13,11 +13,8 @@
 	<form>
 	<div class="span4 collapse-group">
 		<div class="row">
-			<div class="col-md-3">
-				<h3>Contact Information</h3>
-			</div>
-			<div class="col-md-3">
-				<a class="btn showdetails" data-toggle="collapse" data-target="#section1"><span class="glyphicon glyphicon-plus"></span></a>
+			<div class="col-md-12">
+				<h3><a class="btn showdetails" data-toggle="collapse" data-target="#section1"><span class="glyphicon glyphicon-plus"></span></a>Contact Information</h3>
 			</div>
 		</div>
 		<div class="row collapse" id="section1">
@@ -60,11 +57,8 @@
 		<hr/>
 		<div class="span4 collapse-group">
 		<div class="row">
-			<div class="col-md-3">
-				<h3>Organization Description</h3>
-			</div>
-			<div class="col-md-3">
-				<a class="btn showdetails" data-toggle="collapse" data-target="#section2"><span class="glyphicon glyphicon-plus"></span></a>
+			<div class="col-md-12">
+				<h3><a class="btn showdetails" data-toggle="collapse" data-target="#section2"><span class="glyphicon glyphicon-plus"></span></a>Organization Description</h3>
 			</div>
 		</div>
 		<div class="row collapse" id="section2">
@@ -120,16 +114,13 @@
 		</div>
 </div>
 		<hr/>
-		<div class="span4 collapse-group">
+		<div>
 		<div class="row">
 			<div class="col-md-3">
 				<h3>Computers Needed</h3>
 			</div>
-			<div class="col-md-3">
-				<a class="btn showdetails" data-toggle="collapse" data-target="#section3"><span class="glyphicon glyphicon-plus"></span></a>
-			</div>
 		</div>
-		<div class="row collapse" id="section3">
+		<div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
