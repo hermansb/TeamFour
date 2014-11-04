@@ -1,7 +1,7 @@
 applications:
-- name: teamfour-hack
+- name: teamfour-cascon
   disk_quota: 512M
-  host: teamfour-hack
+  host: teamfour-cascon
   command: node app.js
   path: .
   domain: mybluemix.net
