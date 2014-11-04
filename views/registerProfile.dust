@@ -77,17 +77,38 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="input-group">
-				  <span class="input-group-addon">Mobile Phone Number</span>
-				  <input name="mobilePhoneNumber" type="text" class="form-control" placeholder="Mobile Phone Number">
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="input-group">
 				  <span class="input-group-addon">Organization Website</span>
 				  <input name="website" type="text" class="form-control" placeholder="Organization Website">
 				</div>
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-md-12">
+			 <div class="alert alert-info" role="alert">
+			        <strong>Note:</strong> To get text message status changes, you must verify your phone number. Once you click 'verify', you will get a phone call to this mobile number. Once you receive it, you must enter the verification code which appears when you hit the 'verify' button to set up your phone with text messaging.
+			      </div>
+				<div class="input-group">
+				  <span class="input-group-addon">Mobile Phone Number</span>
+				  <input id="phoneNumMobile" name="mobilePhoneNumber" type="text" class="form-control" placeholder="Mobile Phone Number">
+				  <button id="verify" type="button" class="btn btn-lg btn-success">Verify Number</button>
+				  
+				</div>
+				<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+				<script>
+					$('#verify').on('click', function(){
+    					var number = $('#phoneNumMobile').val();
+    					var url = "/verifyPhone?phoneNumber=" + number;
+    					$.ajax({
+    						url: url,
+    						cache: false, 
+    						success: function(verificationCode) {
+    							alert('Please enter the following verification code when you get a phone call: ' + verificationCode);
+    						}
+    					});
+					});
+				</script>
 			</div>
 		</div>
 		<hr/>

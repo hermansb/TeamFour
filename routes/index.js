@@ -284,17 +284,17 @@ router.get('/sendtext', isLoggedIn, function (req, res) {
 	}
 });
 
-router.get('/verifyPhone', isLoggedIn, function(req, res) {
+router.get('/verifyPhone', function(req, res) {
 	client.outgoingCallerIds.create({
 	    friendlyName: "+16475600524",
-	    phoneNumber: "+14165081269"
+	    phoneNumber: req.query.phoneNumber
 	}, function(err, callerId) {
 		if (err) {
 			res.send('error occurred');
 		}
 		else {
 			console.log(JSON.stringify(callerId));
-			res.send('Enter this validation code: ' + callerId.validation_code);
+			res.send(callerId.validation_code);
 		}
 	    res.send(callerId.sid);
 	});
