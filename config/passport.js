@@ -40,4 +40,16 @@ module.exports = function(passport) {
             return done(null, false, { message: "Incorrect username or password" });
         });
 	}));
+
+    function saltedHash(password, hash) {
+        passwordCheck(password).verifyAgainst(hash, function(error, verified) {
+            if(error)
+                throw new Error('Something went wrong!');
+            if(!verified) {
+                console.log("Don't try! We got you!");
+            } else {
+                console.log("Congratulations you hacked into the system.");
+            }
+        });
+    };
 }
