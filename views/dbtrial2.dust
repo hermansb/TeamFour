@@ -1,0 +1,11 @@
+    <div class="container">
+
+	<form id="sendRequest" action="send" method="post">
+    <div>
+        <label for="Status">Status: </label>
+        <input type="text" id="email" name="email"></input>
+    </div>
+	<input type="submit" value="Submit"></input>
+	</form>
+
+    </div> <!-- /container -->
