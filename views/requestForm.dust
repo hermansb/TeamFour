@@ -52,7 +52,7 @@
 				</div>
 			</div>
 		</div>
-		</div>
+		
 		<hr/>
 		<div class="span4 collapse-group">
 		<div class="row">
@@ -173,5 +173,6 @@
 		 	</div>
 		 </div>
 	</form>
+</div>
 </div>
 {>"includes/footer"/}

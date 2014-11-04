@@ -353,7 +353,7 @@ router.post('/request', isLoggedIn, function(req, res) {
 
 
 		//insert new document on old, overwriting request by year if needed
-		base.insert(object, result, function(err, body) {
+		base.insert(object, result._id, function(err, body) {
 			if(!err)
 				res.send("Updated organization request");
 			else
@@ -412,6 +412,59 @@ router.get('/request/view/:id', function(req, res) {
 		justification: 'We have 8 cool kids who need laptops',
 		additionalInfo: 'Did we mention we are very cool?'
 	});
+
+	/*
+	var requestId = req.params.id;
+
+	//Pull the request object from database
+	//Pull the org email from the request document
+	//Get the org information from org email with another query
+
+	var result;
+	var orgResult;
+
+	base.view('dbdesign', 'listAll', function(err, body) {
+	 	if (!err) {
+	 		for(var i = 0; i < body.rows.length; i++)   {
+
+	 			if (body.rows[i].value.request != null && requestId == body.rows[i].id)
+	 				result = body.rows[i].value.request;
+            }
+
+            //result is now org email
+            for(var i = 0; i < body.rows.length; i++)   {
+
+	 			if (body.rows[i].value.organization != null && result.requestingOrg == body.rows[i].value.organization.account.email)
+	 				orgResult = body.rows[i].value.organization;
+            }
+
+			//orgResult is now organization document
+        }
+
+        var yearString = result.requestedDate.substring(0, 4);
+        console.log(JSON.stringify(orgResult));
+		res.render('viewRequest',
+		{ 
+			organizationName: orgResult.name,
+			charityNumber: orgResult.charityNumber,
+			contactName: orgResult.contact[0].name,
+			contactAddress: orgResult.contact[0].address,
+			workPhoneNumber: orgResult.contact[0].phoneNumbers.work,
+			homePhoneNumber: orgResult.contact[0].phoneNumbers.home,
+			mobilePhoneNumber: orgResult.contact[0].phoneNumbers.mobile,
+			organizationWebsite: orgResult.website,
+			missionStatement: orgResult.description.missionsStatement,
+			organizationHistory: orgResult.description.history,
+			programsAndServices: orgResult.description.services[0],
+			targetPopulations: orgResult.description.targetDemographic[0],
+			programDescription: orgResult.description.programDescription,
+			accomplishments: orgResult.description.accomplishments[0],
+			requestedAmount: orgResult.requests[yearString].requestedAmount,
+			justification: orgResult.requests[yearString].strengtheningInformation,
+			additionalInfo: orgResult.requests[yearString].alternateSupply
+		});
+
+	});*/
 });
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
