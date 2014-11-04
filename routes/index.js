@@ -29,10 +29,19 @@ router.get('/', function(req, res) {
 		forbidden = req.query.forbidden;
 	}
 
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
+
 	if (req.isAuthenticated()) {
 		res.redirect('/requests');
 	} else {
-		res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden });
+		res.render('index', { title: 'Express', fail: fail, unauthenticated: unauthenticated, forbidden: forbidden, privilege: privilege });
 	}
 });
 
@@ -65,8 +74,17 @@ router.get('/users', function(req, res) {
 		  data.push(doc);
 		});
 	  }
+
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
 	  
-	  res.render('dashboard', {title: 'Users' , data: data});  
+	  res.render('dashboard', {title: 'Users' , data: data, privilege: privilege});  
 	});
 });
 
@@ -81,7 +99,16 @@ router.get('/pendingrequests', function(req, res) {
 		});
 	  }
 	  
-	  res.render('dashboard', {title: 'Pending' , data: data});  
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
+
+	  res.render('dashboard', {privilege: privilege, title: 'Pending' , data: data});  
 	});
 });
 
@@ -124,7 +151,18 @@ router.get('/user', isLoggedIn, function(req, res) {
                 }
             if (result.account != null) {
             	var a = doc.value.organization;
+
+					var privilege = "noauth";
+					if (req.isAuthenticated()) {
+						if (req.user.isAdmin == 'true') {
+							privilege = 'admin';
+						} else {
+							privilege = 'user';
+						}
+					}
+
             	res.render('viewUser', {
+            		privilege: privilege,
             		organizationName: a.name,
 					charityNumber: a.charityNumber,
 					contactName: a.contact[0].name,
@@ -144,7 +182,16 @@ router.get('/user', isLoggedIn, function(req, res) {
 					additionalInfo: 'Did we mention we are very cool?'
             	});
             } else {
-            	res.render('viewUser', {} );
+
+        		var privilege = "noauth";
+				if (req.isAuthenticated()) {
+					if (req.user.isAdmin == 'true') {
+						privilege = 'admin';
+					} else {
+						privilege = 'user';
+					}
+				}
+            	res.render('viewUser', {privilege: privilege} );
             }
 	 	} else {
 	 		console.log(err);
@@ -214,8 +261,17 @@ router.get('/requests', isLoggedIn, function(req, res) {
 		}
 		});
 	  }
-	  
-	  res.render('dashboard', {title: 'Requests' , data: data});  
+
+	var privilege = "noauth";
+	if (req.isAuthenticated()) {
+		if (req.user.isAdmin == 'true') {
+			privilege = 'admin';
+		} else {
+			privilege = 'user';
+		}
+	}
+	  console.log(privilege);
+	  res.render('dashboard', {title: 'Requests' , data: data, privilege: privilege});  
 	});
 });
 
@@ -236,7 +292,17 @@ router.get('/request', isLoggedIn, function(req, res) {
             if (result.account != null) {
             	var a = doc.value.organization;
 
+				var privilege = "noauth";
+				if (req.isAuthenticated()) {
+					if (req.user.isAdmin == 'true') {
+						privilege = 'admin';
+					} else {
+						privilege = 'user';
+					}
+				}
+
             	res.render('requestForm', { 
+            		privilege: privilege,
             		organizationName: a.name,
 					charityNumber: a.charityNumber,
 					contactName: a.contact[0].name,
@@ -253,7 +319,16 @@ router.get('/request', isLoggedIn, function(req, res) {
 					accomplishments: a.description.accomplishments
             	});
             } else {
-            	res.render('requestForm', { title: 'Create a request' });
+
+        		var privilege = "noauth";
+				if (req.isAuthenticated()) {
+					if (req.user.isAdmin == 'true') {
+						privilege = 'admin';
+					} else {
+						privilege = 'user';
+					}
+				}
+            	res.render('requestForm', { privilege: privilege, title: 'Create a request' });
             }
 	 	} else {
 	 		console.log(err);
@@ -287,7 +362,7 @@ router.post('/request', isLoggedIn, function(req, res) {
 
 
 		//insert new document on old, overwriting request by year if needed
-		base.insert(object, result, function(err, body) {
+		base.insert(object, result._id, function(err, body) {
 			if(!err)
 				res.send("Updated organization request");
 			else
@@ -346,6 +421,59 @@ router.get('/request/view/:id', function(req, res) {
 		justification: 'We have 8 cool kids who need laptops',
 		additionalInfo: 'Did we mention we are very cool?'
 	});
+
+	/*
+	var requestId = req.params.id;
+
+	//Pull the request object from database
+	//Pull the org email from the request document
+	//Get the org information from org email with another query
+
+	var result;
+	var orgResult;
+
+	base.view('dbdesign', 'listAll', function(err, body) {
+	 	if (!err) {
+	 		for(var i = 0; i < body.rows.length; i++)   {
+
+	 			if (body.rows[i].value.request != null && requestId == body.rows[i].id)
+	 				result = body.rows[i].value.request;
+            }
+
+            //result is now org email
+            for(var i = 0; i < body.rows.length; i++)   {
+
+	 			if (body.rows[i].value.organization != null && result.requestingOrg == body.rows[i].value.organization.account.email)
+	 				orgResult = body.rows[i].value.organization;
+            }
+
+			//orgResult is now organization document
+        }
+
+        var yearString = result.requestedDate.substring(0, 4);
+        console.log(JSON.stringify(orgResult));
+		res.render('viewRequest',
+		{ 
+			organizationName: orgResult.name,
+			charityNumber: orgResult.charityNumber,
+			contactName: orgResult.contact[0].name,
+			contactAddress: orgResult.contact[0].address,
+			workPhoneNumber: orgResult.contact[0].phoneNumbers.work,
+			homePhoneNumber: orgResult.contact[0].phoneNumbers.home,
+			mobilePhoneNumber: orgResult.contact[0].phoneNumbers.mobile,
+			organizationWebsite: orgResult.website,
+			missionStatement: orgResult.description.missionsStatement,
+			organizationHistory: orgResult.description.history,
+			programsAndServices: orgResult.description.services[0],
+			targetPopulations: orgResult.description.targetDemographic[0],
+			programDescription: orgResult.description.programDescription,
+			accomplishments: orgResult.description.accomplishments[0],
+			requestedAmount: orgResult.requests[yearString].requestedAmount,
+			justification: orgResult.requests[yearString].strengtheningInformation,
+			additionalInfo: orgResult.requests[yearString].alternateSupply
+		});
+
+	});*/
 });
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
@@ -390,7 +518,7 @@ router.get('/verifyPhone', function(req, res) {
 });
 
 router.post('/', passport.authenticate('local-login', {
-	successRedirect: '/user',
+	successRedirect: '/requests',
 	failureRedirect: '/?fail=true',
 	failureFlash: true
 }));
