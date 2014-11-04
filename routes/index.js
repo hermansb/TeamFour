@@ -74,7 +74,6 @@ router.get('/pendingrequests', function(req, res) {
 
 router.get('/dbtest', isLoggedIn,  
 	function(req, res) {
-		console.log(JSON.stringify(req.user));
 		if (req.user.isAdmin !== 'true') {
 			res.redirect('/?forbidden=true');
 
@@ -272,20 +271,34 @@ router.get('/request/view/:id', function(req, res) {
 });
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
-		client.messages.create({ 
-			to: "6479091164", 
-			from: "+16475600524", 
-			body: "Did you get this?",   
-		}, function(err, message) { 
-			if (err) {
-				console.log('there was an err' + JSON.stringify(err));
-			}
-			else {
-				//console.log(message); 
-				res.send('Text sent! Congratz');
-			}
-		});
-		
+	if (req.user.isAdmin !== 'true') {
+		res.redirect('/?forbidden=true');
+	}
+	else {
+		if (sendText("+14165081269", "Whats up from Bluemix!")) {
+			res.send('Text sent successfully.');
+		}
+		else {
+			res.send('Text message failed.');
+		}
+	}
+});
+
+router.get('/verifyPhone', isLoggedIn, function(req, res) {
+	client.outgoingCallerIds.create({
+	    friendlyName: "+16475600524",
+	    phoneNumber: "+14165081269"
+	}, function(err, callerId) {
+		if (err) {
+			res.send('error occurred');
+		}
+		else {
+			console.log(JSON.stringify(callerId));
+			res.send('Enter this validation code: ' + callerId.validation_code);
+		}
+	    res.send(callerId.sid);
+	});
+
 });
 
 router.post('/', passport.authenticate('local-login', {
@@ -307,7 +320,24 @@ function isLoggedIn(req, res, next) {
     }
     // if they aren't redirect them to the home page
     res.redirect('/?unauthenticated=true');
-}
+};
+
+function sendText(phoneNumber, msg) {
+	client.messages.create({ 
+			to: phoneNumber, 
+			from: "+16475600524", 
+			body: msg,   
+		}, function(err, message) { 
+			if (err) {
+				console.log('there was an err' + JSON.stringify(err));
+				return false;
+			}
+			else {
+				console.log('succeeded'); 
+				return true;
+			}
+		});
+};
 
 
 
