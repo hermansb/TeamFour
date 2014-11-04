@@ -1,6 +1,58 @@
+/* Reset */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* End Reset */
+
+body {
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Arial', Sans-Serif;
 }
 
 a {
@@ -8,5 +60,86 @@ a {
 }
 
 /******************************************************************************
-Update Profile
+Custom Styles
 ******************************************************************************/
+
+.margin-top-20 {
+	margin-top: 20px
+}
+
+.f_left {
+	float: left;
+}
+
+.f_right {
+	float: right;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.sub-navigation {
+	padding: 10px 15px;
+	background-color: #f9f9f9;
+}
+
+.request-details h4 {
+	margin-top: 1.3em;
+}
+
+.request-details:first-child h3 {
+	margin-top: 0em;
+}
+
+.request-status {
+	background-color: #5cb85c;
+	padding: 20px;
+	color: #ffffff;
+}
+
+	.request-status table {
+		width: 100%;
+	}
+
+		.request-status table tr td.label {
+			font-weight: bold;
+			font-size: 1.5rem;
+			line-height: 1.5rem;
+		}
+
+
+		.request-status table tr td.value {
+			line-height: 1.5rem;
+		}
+
+.comment-section {
+	margin-top: 20px;
+}
+
+	.comment-section .message {
+		margin-bottom: 20px;
+	}
+
+		.comment-section .message .sender {
+			font-weight: bold;
+		}
+
+		.comment-section .message .payload {
+			color: #333333;
+			margin-top: 10px;
+			font-weight: normal;
+		}
+
+		.comment-section .message .timestamp {
+			color: #999999;
+			margin-top: 10px;
+			font-size: 1.2rem;
+		}
+
+	.comment-section .input-box {
+		display: block;
+		width: 100%;
+		height: 100px;
+		margin-bottom: 10px;
+	}

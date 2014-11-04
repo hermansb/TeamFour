@@ -99,6 +99,30 @@ router.get('/request', function(req, res) {
 	res.render('requestForm', { title: 'Create a request' });
 });
 
+router.get('/request/view/:id', function(req, res) {
+	//Database call, fetch request by id
+	//Then populate the fields below
+	res.render('viewRequest',
+	{ 
+		organizationName: 'Cool Organization',
+		charityNumber: '123456789',
+		contactName: 'Dr. Spaceman',
+		contactAddress: '123 Street Street',
+		workPhoneNumber: '416-555-5555',
+		homePhoneNumber: '416-555-5556',
+		mobilePhoneNumber: '416-555-5557',
+		organizationWebsite: 'www.coolorganization.com',
+		missionStatement: 'To provide cool kids a chance to be cool',
+		organizationHistory: 'Weve been cool since being cool was cool',
+		programsAndServices: 'We provide cool programs',
+		targetPopulations: 'Cool kids',
+		programDescription: 'Our program is pretty cool',
+		accomplishments: 'We were voted coolest organization by cool people',
+		requestedAmount: 8,
+		justification: 'We have 8 cool kids who need laptops',
+		additionalInfo: 'Did we mention we are very cool?'
+	});
+});
 
 router.get('/sendtext', isLoggedIn, function (req, res) {
 		client.messages.create({ 

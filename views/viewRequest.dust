@@ -1,0 +1,119 @@
+{>"includes/header"/}
+{>"includes/navbar"/}
+<div class="container-fluid">
+	<div class="container">
+		<div class="row overflow-hidden sub-navigation">
+			<div class="f_left">
+				<h4>Request #</h4>
+			</div>
+			<div class="f_right">
+				<a href="#">
+					<button type="button" class="btn btn-primary">Update</button>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container margin-top-20">
+	<div class="row">
+		<div class="col-md-7 request-details">
+			<h3>
+				Request Details
+			</h3>
+			<!-- Request Details -->
+			<h4>Organization Name</h4>
+			<p>{organizationName}</p>
+
+			<h4>Charity Number</h4>
+			<p>{charityNumber}</p>
+
+			<h4>Contact Name</h4>
+			<p>{contactName}</p>
+
+			<h4>Contact Address</h4>
+			<p>{contactAddress}</p>
+
+			<h4>Work Phone Number</h4>
+			<p>{workPhoneNumber}</p>
+
+			<h4>Home Phone Number</h4>
+			<p>{homePhoneNumber}</p>
+
+			<h4>Mobile Phone Number</h4>
+			<p>{mobilePhoneNumber}</p>
+
+			<h4>Website</h4>
+			<p>{organizationWebsite}</p>
+
+			<h4>Mission Statement</h4>
+			<p>{missionStatement}</p>
+
+			<h4>Organization History</h4>
+			<p>{organizationHistory}</p>
+
+			<h4>Programs and Services</h4>
+			<p>{programsAndServices}</p>
+
+			<h4>Target Populations</h4>
+			<p>{targetPopulations}</p>
+
+			<h4>Program Description</h4>
+			<p>{programDescription}</p>
+
+			<h4>Accomplishments</h4>
+			<p>{accomplishments}</p>
+
+			<h4>Requested Laptop Amount</h4>
+			<p>{requestedAmount}</p>
+
+			<h4>Justification</h4>
+			<p>{justification}</p>
+
+			<h4>Additional Info</h4>
+			<p>{additionalInfo}</p>
+		</div>
+		<div class="col-md-5">
+			<!-- Request Commenting system -->
+			<div class="request-status">
+				<table cellspacing="0" cellpadding="0" border="0">
+					<tr>
+						<td class="label">Status</td>
+						<td class="value">Review In Progress</td>
+					</tr>
+					<tr>
+						<td class="label">Last Update</td>
+						<td class="value">November 04, 2014 | 10:56AM</td>
+					</tr>
+					<tr>
+						<td class="label">Date Created</td>
+						<td class="value">October 31, 2014 | 4:35PM</td>
+					</tr>
+				</table>
+			</div>
+			<hr/>
+			<h4>Comments</h4>
+			<div class="comment-section">
+				<div class="message">
+					<div class="sender">You</div>
+					<div class="payload">No problem. I've made the updates. Please let me know if you need anything else.</div>
+					<div class="timestamp text-right">
+						November 4, 2014 | 10:56AM
+					</div>
+				</div>
+				<div class="message">
+					<div class="sender">Administrator</div>
+					<div class="payload">Hi. Can you please provide additional justification? Also can you please provide a website? We'd like to do some more background research on your organization</div>
+					<div class="timestamp text-right">
+						November 02, 2014 | 2:22PM
+					</div>
+				</div>
+				<textarea class="input-box" placeholder="Enter a comment"></textarea>
+				<div class="text-right">
+					<button type="button" class="btn btn-primary text-right">Submit Comment</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+{>"includes/footer"/}
