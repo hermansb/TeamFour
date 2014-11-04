@@ -17,9 +17,23 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="#">Pending Requests</a></li>
-            <li><a href="/register">Past Requests</a></li>
-            <li><a href="#">Users</a></li>
+            {@eq key=title value="Pending"}
+              <li class="active" ><a href="/pendingrequests">Pending Requests</a></li>
+            {:else}
+              <li><a href="/pendingrequests">Pending Requests</a></li>
+            {/eq}
+
+            {@eq key=title value="Requests"}
+              <li class="active" ><a href="/requests">Past Requests</a></li>
+            {:else}
+              <li><a href="/requests">Past Requests</a></li>
+            {/eq}
+
+            {@eq key=title value="Users"}
+              <li class="active"><a href="/users">Users</a></li>
+            {:else}
+              <li><a href="/users">Users</a></li>
+            {/eq}
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

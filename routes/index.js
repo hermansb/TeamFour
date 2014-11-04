@@ -59,6 +59,21 @@ router.get('/users', function(req, res) {
 	});
 });
 
+router.get('/pendingrequests', function(req, res) {
+
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Pending' , data: data});  
+	});
+});
+
 router.get('/dbtest', isLoggedIn,  
 	function(req, res) {
 		console.log(JSON.stringify(req.user));
@@ -155,7 +170,17 @@ router.post('/user', function(req, res)	{
 });
 
 router.get('/requests', function(req, res) {
-	res.render('index', {title: 'REQUESTS'});
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(doc, null, "\n");
+		});
+	  }
+	  
+	  res.render('dashboard', {title: 'Requests' , data: data});  
+	});
 });
 
 router.get('/request', function(req, res) {
