@@ -518,7 +518,7 @@ router.get('/verifyPhone', function(req, res) {
 });
 
 router.post('/', passport.authenticate('local-login', {
-	successRedirect: '/user',
+	successRedirect: '/requests',
 	failureRedirect: '/?fail=true',
 	failureFlash: true
 }));
