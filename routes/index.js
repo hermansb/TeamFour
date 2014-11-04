@@ -5,15 +5,27 @@ var nano = require('nano')('https://ada12f18-1a96-412b-be06-55caa0cf0d9c-bluemix
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', 
-  	{ 
-  		title: 'Express',
-  		privilege: 'admin'
-  	}
-  );
+  res.render('index', { title: 'Express' });
 });
 
 router.get('/dbtrial', function(req, res) {
+
+	var base = nano.db.use('database');
+	var data = [];
+	base.view('dbdesign', 'listAll', function(err, body) {
+	  if (!err) {
+		body.rows.forEach(function(doc) {
+		  data.push(JSON.stringify(doc, null, "\n"));
+		});
+	  }
+	  
+	  res.render('dbtrial', { title: 'Dbtrial' , data: data});  
+	});
+
+});
+
+
+router.get('/dbtrial2', function(req, res) {
 
 	var base = nano.db.use('database');
 	var data = [];
