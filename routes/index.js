@@ -147,6 +147,7 @@ router.post('/register', function(req, res)	{
 
 	var a = req.body;
 
+	sendText(a.mobilePhoneNumber, "Thank you for registering your organization with Sky's the Limit!");
 	var object = {
 		"organization": {
 			"account": {"email": a.InputEmail, "password": a.InputPassword},
