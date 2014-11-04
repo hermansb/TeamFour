@@ -140,13 +140,14 @@ router.get('/user', isLoggedIn, function(req, res) {
 });
 
 router.get('/register', function (req, res) {
-	res.render('updateProfile', {title: "Update Profile"});
+	res.render('registerProfile', {title: "Update Profile"});
 });
 
 router.post('/register', function(req, res)	{
 
 	var a = req.body;
 
+	sendText(a.mobilePhoneNumber, "Thank you for registering your organization with Sky's the Limit!");
 	var object = {
 		"organization": {
 			"account": {"email": a.InputEmail, "password": a.InputPassword},
@@ -321,17 +322,17 @@ router.get('/sendtext', isLoggedIn, function (req, res) {
 	}
 });
 
-router.get('/verifyPhone', isLoggedIn, function(req, res) {
+router.get('/verifyPhone', function(req, res) {
 	client.outgoingCallerIds.create({
 	    friendlyName: "+16475600524",
-	    phoneNumber: "+14165081269"
+	    phoneNumber: req.query.phoneNumber
 	}, function(err, callerId) {
 		if (err) {
 			res.send('error occurred');
 		}
 		else {
 			console.log(JSON.stringify(callerId));
-			res.send('Enter this validation code: ' + callerId.validation_code);
+			res.send(callerId.validation_code);
 		}
 	    res.send(callerId.sid);
 	});
